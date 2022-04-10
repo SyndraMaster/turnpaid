@@ -104,10 +104,10 @@ header h2 {
   padding: 20px;
   display: -ms-grid;
   display: grid;
-  justify-items: center;
-  width: 100%;
   -ms-grid-columns: 14% 14% 14% 14% 14% 14% 14%;
       grid-template-columns: 14% 14% 14% 14% 14% 14% 14%;
+  justify-items: center;
+  width: 100%;
 }
 
 .dias-mes > div {
@@ -135,8 +135,139 @@ header h2 {
 
 .dias-mes .day-container {
   width: 100%;
-  height: 60px;
-  padding: 3px;
+  height: 50px;
+  margin-bottom: 5px;
   background-color: #FF4848;
+}
+
+.modal {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  overflow: hidden;
+  -webkit-backdrop-filter: grayscale(10%) blur(10px);
+          backdrop-filter: grayscale(10%) blur(10px);
+}
+
+.modal-base {
+  width: 500px;
+  max-height: 600px;
+  height: 100%;
+  background: #9DDAC6;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 0 10px #9DDAC6;
+          box-shadow: 0 0 10px #9DDAC6;
+  overflow: hidden;
+}
+
+.modal-titulo {
+  color: #C2FFD9;
+  background-color: #FF4848;
+  width: 100%;
+  text-align: center;
+  padding: 12px;
+}
+
+.modal-titulo p {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 2.5rem;
+}
+
+.modal-seleccion {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 80%;
+}
+
+.reloj {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 20px;
+}
+
+input[type=time] {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 2rem;
+  font-weight: bold;
+  background-color: #C2FFD9;
+  margin-bottom: 50px;
+}
+
+input[type=time]:hover {
+  outline: none;
+}
+
+input[type=time]:focus {
+  outline: none;
+}
+
+.turnos {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 200px;
+  padding: 0 80px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.turnos .pre-turno {
+  display: block;
+  font-size: 1.2rem;
+  padding: 10px 15px;
+  margin: 5px;
+  -webkit-box-shadow: 0 0 5px rgba(255, 211, 113, 0.5);
+          box-shadow: 0 0 5px rgba(255, 211, 113, 0.5);
+  border-radius: 5px;
+  font-weight: bold;
+  opacity: 0.8;
+  cursor: pointer;
+  background-color: #FFD371;
+}
+
+.turnos .pre-turno:hover {
+  -webkit-box-shadow: 0 0 10px #FFD371;
+          box-shadow: 0 0 10px #FFD371;
+  opacity: 1;
 }
 /*# sourceMappingURL=estilos.css.map */
