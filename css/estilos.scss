@@ -103,6 +103,11 @@ header {
         height: 50px;
         margin-bottom: 5px;
         background-color: $principal;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        font-weight: bold;
     }
 }
 .modal {
@@ -110,14 +115,33 @@ header {
     top: 0;
     height: 100%;
     width: 100%;
-    // background-color: #4d4d4d;
     z-index: 1;
-    display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
     backdrop-filter: grayscale(10%) blur(10px); 
-    // display: none;
+    display: none;
+}
+@keyframes modal  {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+.modalOpen {
+    display: flex;
+    animation-duration: 0.5s;
+    animation-name: modal;
+}
+.cerrar {
+    cursor: pointer;
+    box-shadow: 0 0 10px $sombra;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 3rem;
+    border-radius: 5px;
+    padding: 10px 20px;
+    background-color: $sombra;
+    color: #fff;
 }
 .modal-base {
     width: 500px;
@@ -155,6 +179,7 @@ h4 {
 }
 input[type=time] {
     padding: 10px;
+    width: 230px;
     border: none;
     border-radius: 5px;
     font-size: 2rem;
@@ -193,4 +218,25 @@ input[type=time] {
         }
 
     }
+}
+.enviar {
+    display: flex;
+    width: 220px;
+    justify-content: space-between;
+}
+button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+    box-shadow: 0 0 5px rgb(121, 120, 120);
+}
+.descanso {
+    background-color: $tercero;
+}
+.confirmar {
+    background-color: $principal;
+    color: $tercero;
 }

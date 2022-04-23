@@ -138,6 +138,17 @@ header h2 {
   height: 50px;
   margin-bottom: 5px;
   background-color: #FF4848;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 1.4rem;
+  font-weight: bold;
 }
 
 .modal {
@@ -146,9 +157,6 @@ header h2 {
   height: 100%;
   width: 100%;
   z-index: 1;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -158,6 +166,49 @@ header h2 {
   overflow: hidden;
   -webkit-backdrop-filter: grayscale(10%) blur(10px);
           backdrop-filter: grayscale(10%) blur(10px);
+  display: none;
+}
+
+@-webkit-keyframes modal {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes modal {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.modalOpen {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
+  -webkit-animation-name: modal;
+          animation-name: modal;
+}
+
+.cerrar {
+  cursor: pointer;
+  -webkit-box-shadow: 0 0 10px #9DDAC6;
+          box-shadow: 0 0 10px #9DDAC6;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 3rem;
+  border-radius: 5px;
+  padding: 10px 20px;
+  background-color: #9DDAC6;
+  color: #fff;
 }
 
 .modal-base {
@@ -216,6 +267,7 @@ h4 {
 
 input[type=time] {
   padding: 10px;
+  width: 230px;
   border: none;
   border-radius: 5px;
   font-size: 2rem;
@@ -269,5 +321,35 @@ input[type=time]:focus {
   -webkit-box-shadow: 0 0 10px #FFD371;
           box-shadow: 0 0 10px #FFD371;
   opacity: 1;
+}
+
+.enviar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 220px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+  -webkit-box-shadow: 0 0 5px #797878;
+          box-shadow: 0 0 5px #797878;
+}
+
+.descanso {
+  background-color: #C2FFD9;
+}
+
+.confirmar {
+  background-color: #FF4848;
+  color: #C2FFD9;
 }
 /*# sourceMappingURL=estilos.css.map */
