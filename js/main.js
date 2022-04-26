@@ -4,10 +4,11 @@ let fecha = new Date()
 let contenedor = null;
 let turnSelect = null;
 let dia = null;
-let calendario = [];
+let calendario =[];
 let modal = document.querySelector('.modal');
 let cerrar = document.querySelector('.cerrar');
 let turno = document.querySelector('#turno');
+let diafechado = [];
 
 function generarCalendario () {
     fecha.setDate(1)
@@ -27,7 +28,7 @@ function generarCalendario () {
         days += `<div class='prev-days'><p>${ultDiaMesPrevio - x + 1}</p></div>`;
     }
     for (let i = 1; i <= diasTotalesMes; i++) {
-        days += `<div class="day" dt-day="${i}"><p>${i}</p><div class="day-container"></div></div>`;
+        days += `<div class="day" dt-day="${anoActual}, ${mesActual + 1}, ${i}"><p>${i}</p><div class="day-container"></div></div>`;
         diasMes.innerHTML = days;
     }
     for (let j = 0; j < siguientesDias; j++) {
@@ -49,6 +50,12 @@ document.querySelector('.posterior').addEventListener('click', () => {
     generarCalendario();
 })
 
+cerrar.addEventListener('click', () => {
+    modal.classList.remove('modalOpen');
+    agregarJson(turno.value, diafechado)
+    turno.value = '';
+    console.log(calendario)
+})
 function crEvent (dtFecha) {
     let dia = document.querySelectorAll('.day')
     for (let i = 0; i < dia.length; i++) {
@@ -64,27 +71,28 @@ function evento (clicked, dtFecha) {
     contenedor = clicked.lastChild;
     dia = clicked.firstChild.textContent;
     dtFecha['dia'] = Number(dia);
-    let diafechado = [dtFecha['ano'], dtFecha['mes'], dtFecha['dia']]
+    diafechado = [dtFecha['ano'], dtFecha['mes'], dtFecha['dia']];
+    
     contenedor.style.backgroundColor = "blue";
-    openModal();
-    calendario.push(empujarCalend(diafechado));
-    console.log(calendario)
-}
-
-function empujarCalend (diafechado) {
-    return diafechado;
+    openModal(diafechado);
+    console.log(turno.value)
 }
 
 /////////////////////////////////////////////////////////////////
 let seleccionTurno = document.getElementsByClassName('pre-turno');
-function openModal () {
+function openModal (diafechado) {
     modal.classList.add("modalOpen");
     for (let i = 0; i < seleccionTurno.length; i++) {
         seleccionTurno[i].addEventListener('click', turnInit)
     }
-    cerrar.addEventListener('click', () => {
-        modal.classList.remove('modalOpen');
+}
+
+function agregarJson (turno, diafechado) {
+    calendario.push({
+        fecha: diafechado.toString(),
+        horario: turno
     })
+    // turno = ''
 }
 
 function turnInit () {
