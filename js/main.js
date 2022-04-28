@@ -1,4 +1,5 @@
 /////////////////////////////////////////////////////
+let seleccionTurno = document.getElementsByClassName('pre-turno');
 let clicked = null;
 let fecha = new Date()
 let contenedor = null;
@@ -9,6 +10,7 @@ let modal = document.querySelector('.modal');
 let cerrar = document.querySelector('.cerrar');
 let turno = document.querySelector('#turno');
 let diafechado = [];
+let diaBuscado = null;
 
 function generarCalendario () {
     fecha.setDate(1)
@@ -28,17 +30,24 @@ function generarCalendario () {
         days += `<div class='prev-days'><p>${ultDiaMesPrevio - x + 1}</p></div>`;
     }
     for (let i = 1; i <= diasTotalesMes; i++) {
-        days += `<div class="day" dt-day="${anoActual}, ${mesActual + 1}, ${i}"><p>${i}</p><div class="day-container"></div></div>`;
+        days += `<div class="day" id="a${anoActual}_${mesActual + 1}_${i}"><p>${i}</p><div class="day-container"></div></div>`;
         diasMes.innerHTML = days;
-    }
-    for (let j = 0; j < siguientesDias; j++) {
-        days += `<div class='post-days'><p>${j + 1}</p><div class="day-container"></div></div>`;
-        diasMes.innerHTML = days;
+        // let diitas = calendario.find(e => e.fecha === '"' + anoActual + mesActual + i + '"')
+        // let buscador = document.querySelector(["[" + 'dt-day=' + '"' + diitas.fecha + '"]']);
+        // if (buscador != null) {
+        //     buscador.lastChild.TEXT_NODE = diitas.horario;
+        // }
+        
     }
     let dtFecha = {
         mes: mesActual + 1,
         ano: anoActual
     }
+    for (let j = 0; j < siguientesDias; j++) {
+        days += `<div class='post-days'><p>${j + 1}</p><div class="day-container"></div></div>`;
+        diasMes.innerHTML = days;
+    }
+    recuperarFechas()
     crEvent(dtFecha);
 }
 document.querySelector('.previo').addEventListener('click', () => {
@@ -54,7 +63,6 @@ cerrar.addEventListener('click', () => {
     modal.classList.remove('modalOpen');
     agregarJson(turno.value, diafechado)
     turno.value = '';
-    console.log(calendario)
 })
 function crEvent (dtFecha) {
     let dia = document.querySelectorAll('.day')
@@ -72,15 +80,11 @@ function evento (clicked, dtFecha) {
     dia = clicked.firstChild.textContent;
     dtFecha['dia'] = Number(dia);
     diafechado = [dtFecha['ano'], dtFecha['mes'], dtFecha['dia']];
-    
-    contenedor.style.backgroundColor = "blue";
+    contenedor.classList.add('fulled');
     openModal(diafechado);
-    console.log(turno.value)
 }
 
-/////////////////////////////////////////////////////////////////
-let seleccionTurno = document.getElementsByClassName('pre-turno');
-function openModal (diafechado) {
+function openModal () {
     modal.classList.add("modalOpen");
     for (let i = 0; i < seleccionTurno.length; i++) {
         seleccionTurno[i].addEventListener('click', turnInit)
@@ -92,8 +96,8 @@ function agregarJson (turno, diafechado) {
         fecha: diafechado.toString(),
         horario: turno
     })
-    // turno = ''
 }
+
 
 function turnInit () {
     turnSelect = this;
@@ -106,13 +110,19 @@ function changeTurn (turnSelect) {
     contenedor.textContent = turno.value;
 }
 
+function recuperarFechas () {
+    calendario.forEach(e => 
+        reescribirFecha(e)
+    );
+    
+}
 
-// function guardarTurno () {
-    
-    // }
-    
-    
-    // function fechaActual () {
-        //     return
-        // }
+function reescribirFecha (element) {
+    let arreglo = '#a' + element.fecha.replace(/,/g, '_');
+    diaBuscado = document.querySelector(`${arreglo}`);
+    if (diaBuscado != null) {
+        diaBuscado.lastChild.textContent = element.horario;
+        diaBuscado.lastChild.classList.add('fulled')
+    }
+}
 generarCalendario();

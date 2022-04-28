@@ -151,6 +151,11 @@ header h2 {
   font-weight: bold;
 }
 
+.dias-mes .day-container.fulled {
+  background-color: #C2FFD9;
+  color: #FF4848;
+}
+
 .modal {
   position: absolute;
   top: 0;
