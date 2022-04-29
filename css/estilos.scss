@@ -6,12 +6,13 @@
     box-sizing: border-box;
 }
 html {
-    background-color: #333333;
+    // background-color: #333333;
 }
 // Variables
-$principal: #FF4848;
+$medio: 800px;
+$principal: #8ebb37;
 $contraste: #FFD371;
-$tercero: #C2FFD9;
+$tercero: #1a3072;
 $sombra: #9DDAC6;
 
 header {
@@ -21,12 +22,12 @@ header {
         text-align: center;
         font-size: 3rem;
         line-height: 4rem;
-        color: $tercero;
+        color: #fff;
     }
     h2 {
         text-align: center;
         padding: 20px;
-        color: $sombra;
+        color: $tercero;
     }
 }
 .container {
@@ -40,7 +41,7 @@ header {
         align-items: center;
         flex-flow: column nowrap;
         width: 900px;
-        background-color: #4d4d4d;
+        background-color: #d3d3d3;
         box-shadow: 0px 0px 10px $principal;
     }
 }
@@ -51,6 +52,7 @@ header {
     align-items: center;
     justify-content: space-between;
     padding: 0 100px;
+    color: #fff;
     i {
         font-size: 2rem;
         cursor: pointer;
@@ -74,22 +76,30 @@ header {
 .dias-mes {
     padding: 20px;
     display: grid;
-    grid-template-columns: 14% 14% 14% 14% 14% 14% 14%;
+    grid-template-columns: 14.28% 14.28% 14.28% 14.28% 14.28% 14.28% 14.28%;
     justify-items: center;
     width: 100%;
     >div {
         height: 80px;
         width: 100%;
-        border: 1px solid #4d4d4d;
+        border: 1px solid #d3d3d3;
         padding: 5px;
         &:hover {
             border: 1px solid $sombra;
         }
+        @media screen and (max-width: $medio){
+            padding: 0;
+            height: 70px;
+            border: none;
+        }
+    }
+    @media screen and (max-width: $medio){
+        padding: 0;
     }
     p {
         text-align: right;
         padding-right: 5px;
-        background-color: $sombra;
+        background-color: #fff;
         color: $principal;
         font-weight: bold;
     }
@@ -103,6 +113,7 @@ header {
         height: 50px;
         margin-bottom: 5px;
         background-color: $principal;
+        opacity: 0.8;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -110,7 +121,11 @@ header {
         font-weight: bold;
         &.fulled {
             background-color: $tercero;
-            color: $principal;
+            color: #fff;
+            opacity: 1;
+        }
+        @media screen  and (max-width: $medio) {
+            margin-bottom: 0;
         }
     }
 }
@@ -151,13 +166,13 @@ header {
     width: 500px;
     max-height: 600px;
     height: 100%;
-    background: $sombra;
+    background: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px $sombra;
     overflow: hidden;
 }
 .modal-titulo {
-    color: $tercero;
+    color: #fff;
     background-color: $principal;
     width: 100%;
     text-align: center;
@@ -190,6 +205,7 @@ input[type=time] {
     font-weight: bold;
     background-color: $tercero;
     margin-bottom: 50px;
+    color: #fff;
     &:hover {
         outline: none;
     }
@@ -199,15 +215,16 @@ input[type=time] {
 }
 .turnos {
     display: flex;
-    width: 100%;
+    width: 80%;
     height: 200px;
-    padding: 0 80px;
+    // padding: 0 80px;
     flex-flow: column wrap;
     align-items: center;
     justify-content: flex-start;
     .pre-turno {
         display: block;
         font-size: 1.2rem;
+        width: 20%;
         padding: 10px 15px;
         margin: 5px;
         box-shadow: 0 0 5px rgba($color: $contraste, $alpha: 0.5);
@@ -220,7 +237,13 @@ input[type=time] {
             box-shadow: 0 0 10px $contraste;
             opacity: 1;
         }
+        // @media screen and (max-width: 480px){
+        //     padding:0;
+        // }
 
+    }
+    @media screen and (max-width: 480px){
+        width: 100%;
     }
 }
 .enviar {
@@ -239,8 +262,9 @@ button {
 }
 .descanso {
     background-color: $tercero;
+    color: #fff;
 }
 .confirmar {
     background-color: $principal;
-    color: $tercero;
+    color: #fff;
 }

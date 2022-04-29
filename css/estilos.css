@@ -6,26 +6,22 @@
           box-sizing: border-box;
 }
 
-html {
-  background-color: #333333;
-}
-
 header {
   width: 100%;
 }
 
 header h1 {
-  background-color: #FF4848;
+  background-color: #8ebb37;
   text-align: center;
   font-size: 3rem;
   line-height: 4rem;
-  color: #C2FFD9;
+  color: #fff;
 }
 
 header h2 {
   text-align: center;
   padding: 20px;
-  color: #9DDAC6;
+  color: #1a3072;
 }
 
 .container {
@@ -35,7 +31,7 @@ header h2 {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  color: #C2FFD9;
+  color: #1a3072;
   padding-bottom: 50px;
 }
 
@@ -54,13 +50,13 @@ header h2 {
       -ms-flex-flow: column nowrap;
           flex-flow: column nowrap;
   width: 900px;
-  background-color: #4d4d4d;
-  -webkit-box-shadow: 0px 0px 10px #FF4848;
-          box-shadow: 0px 0px 10px #FF4848;
+  background-color: #d3d3d3;
+  -webkit-box-shadow: 0px 0px 10px #8ebb37;
+          box-shadow: 0px 0px 10px #8ebb37;
 }
 
 .mes-head {
-  background-color: #FF4848;
+  background-color: #8ebb37;
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -72,6 +68,7 @@ header h2 {
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: 0 100px;
+  color: #fff;
 }
 
 .mes-head i {
@@ -104,8 +101,8 @@ header h2 {
   padding: 20px;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 14% 14% 14% 14% 14% 14% 14%;
-      grid-template-columns: 14% 14% 14% 14% 14% 14% 14%;
+  -ms-grid-columns: 14.28% 14.28% 14.28% 14.28% 14.28% 14.28% 14.28%;
+      grid-template-columns: 14.28% 14.28% 14.28% 14.28% 14.28% 14.28% 14.28%;
   justify-items: center;
   width: 100%;
 }
@@ -113,7 +110,7 @@ header h2 {
 .dias-mes > div {
   height: 80px;
   width: 100%;
-  border: 1px solid #4d4d4d;
+  border: 1px solid #d3d3d3;
   padding: 5px;
 }
 
@@ -121,11 +118,25 @@ header h2 {
   border: 1px solid #9DDAC6;
 }
 
+@media screen and (max-width: 800px) {
+  .dias-mes > div {
+    padding: 0;
+    height: 70px;
+    border: none;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .dias-mes {
+    padding: 0;
+  }
+}
+
 .dias-mes p {
   text-align: right;
   padding-right: 5px;
-  background-color: #9DDAC6;
-  color: #FF4848;
+  background-color: #fff;
+  color: #8ebb37;
   font-weight: bold;
 }
 
@@ -137,7 +148,8 @@ header h2 {
   width: 100%;
   height: 50px;
   margin-bottom: 5px;
-  background-color: #FF4848;
+  background-color: #8ebb37;
+  opacity: 0.8;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -152,8 +164,15 @@ header h2 {
 }
 
 .dias-mes .day-container.fulled {
-  background-color: #C2FFD9;
-  color: #FF4848;
+  background-color: #1a3072;
+  color: #fff;
+  opacity: 1;
+}
+
+@media screen and (max-width: 800px) {
+  .dias-mes .day-container {
+    margin-bottom: 0;
+  }
 }
 
 .modal {
@@ -220,7 +239,7 @@ header h2 {
   width: 500px;
   max-height: 600px;
   height: 100%;
-  background: #9DDAC6;
+  background: #fff;
   border-radius: 10px;
   -webkit-box-shadow: 0 0 10px #9DDAC6;
           box-shadow: 0 0 10px #9DDAC6;
@@ -228,8 +247,8 @@ header h2 {
 }
 
 .modal-titulo {
-  color: #C2FFD9;
-  background-color: #FF4848;
+  color: #fff;
+  background-color: #8ebb37;
   width: 100%;
   text-align: center;
   padding: 12px;
@@ -277,8 +296,9 @@ input[type=time] {
   border-radius: 5px;
   font-size: 2rem;
   font-weight: bold;
-  background-color: #C2FFD9;
+  background-color: #1a3072;
   margin-bottom: 50px;
+  color: #fff;
 }
 
 input[type=time]:hover {
@@ -293,9 +313,8 @@ input[type=time]:focus {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
+  width: 80%;
   height: 200px;
-  padding: 0 80px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-flow: column wrap;
@@ -311,6 +330,7 @@ input[type=time]:focus {
 .turnos .pre-turno {
   display: block;
   font-size: 1.2rem;
+  width: 20%;
   padding: 10px 15px;
   margin: 5px;
   -webkit-box-shadow: 0 0 5px rgba(255, 211, 113, 0.5);
@@ -326,6 +346,12 @@ input[type=time]:focus {
   -webkit-box-shadow: 0 0 10px #FFD371;
           box-shadow: 0 0 10px #FFD371;
   opacity: 1;
+}
+
+@media screen and (max-width: 480px) {
+  .turnos {
+    width: 100%;
+  }
 }
 
 .enviar {
@@ -350,11 +376,12 @@ button {
 }
 
 .descanso {
-  background-color: #C2FFD9;
+  background-color: #1a3072;
+  color: #fff;
 }
 
 .confirmar {
-  background-color: #FF4848;
-  color: #C2FFD9;
+  background-color: #8ebb37;
+  color: #fff;
 }
 /*# sourceMappingURL=estilos.css.map */
