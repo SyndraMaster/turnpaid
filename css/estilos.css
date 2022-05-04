@@ -91,10 +91,16 @@ header h2 {
           align-items: center;
   width: 100%;
   height: 30px;
-  -ms-grid-columns: 14% 14% 14% 14% 14% 14% 14%;
-      grid-template-columns: 14% 14% 14% 14% 14% 14% 14%;
+  -ms-grid-columns: 14.28% 14.28% 14.28% 14.28% 14.28% 14.28% 14.28%;
+      grid-template-columns: 14.28% 14.28% 14.28% 14.28% 14.28% 14.28% 14.28%;
   padding: 20px;
   font-weight: bold;
+}
+
+@media screen and (max-width: 800px) {
+  .dias-semana {
+    padding: 0;
+  }
 }
 
 .dias-mes {
@@ -164,14 +170,15 @@ header h2 {
 }
 
 .dias-mes .day-container.fulled {
-  background-color: #1a3072;
-  color: #fff;
+  background-color: #f7f7f7;
+  color: #8ebb37;
   opacity: 1;
 }
 
 @media screen and (max-width: 800px) {
   .dias-mes .day-container {
     margin-bottom: 0;
+    font-size: 1.1rem;
   }
 }
 
@@ -309,6 +316,10 @@ input[type=time]:focus {
   outline: none;
 }
 
+input[type=time]::after {
+  color: #fff;
+}
+
 .turnos {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -383,5 +394,111 @@ button {
 .confirmar {
   background-color: #8ebb37;
   color: #fff;
+}
+
+.terminar {
+  text-align: center;
+  background-color: #1a3072;
+  width: 150px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+  -webkit-box-shadow: 0 0 5px #1a3072;
+          box-shadow: 0 0 5px #1a3072;
+  margin: auto;
+  padding: 10px 20px;
+}
+
+.drawNomina {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 50px;
+  display: none;
+}
+
+@media screen and (max-width: 1100px) {
+  .drawNomina {
+    padding: 20px;
+  }
+}
+
+.nominaContainer {
+  width: 90%;
+  padding: 40px;
+  background-color: #d3d3d3;
+  min-height: 100vh;
+}
+
+.nominaContainer h5 {
+  text-align: center;
+}
+
+.nominaContainer i {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 2rem;
+}
+
+@media screen and (max-width: 1100px) {
+  .nominaContainer {
+    width: 100%;
+  }
+}
+
+.turnosContainer {
+  width: 100%;
+  padding: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.turnosContainer .container {
+  width: 150px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+}
+
+.turnosContainer .container .fecha-hora {
+  background-color: #8ebb37;
+  color: #fff;
+}
+
+.turnosContainer .container div {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 5px 5px;
 }
 /*# sourceMappingURL=estilos.css.map */
