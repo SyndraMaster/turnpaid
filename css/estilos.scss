@@ -314,6 +314,9 @@ button {
     @media screen and (max-width: 1100px) {
         width: 100%;
     }
+    @media screen and (max-width: 600px) {
+        padding: 40px 0;
+    }
 }
 .turnosContainer {
     width: 100%;
@@ -330,6 +333,11 @@ button {
         .fecha-hora {
             background-color: #8ebb37;
             color: #fff;
+        }
+        @media screen and (max-width: 375px) {
+            padding: 0;
+            font-size: 0.5rem;
+            width: 100px;
         }
         div {
             width: 100%;
