@@ -24,6 +24,13 @@ header h2 {
   color: #1a3072;
 }
 
+@media screen and (max-width: 800px) {
+  header h2 {
+    padding: 10px;
+    font-size: 1.3rem;
+  }
+}
+
 .container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -74,6 +81,20 @@ header h2 {
 .mes-head i {
   font-size: 2rem;
   cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+  .mes-head {
+    font-size: 1rem;
+    padding: 0 60px;
+  }
+  .mes-head h3 {
+    font-size: 1.5rem;
+    padding: 20px;
+  }
+  .mes-head i {
+    font-size: 1.8rem;
+  }
 }
 
 .mes {
@@ -240,6 +261,13 @@ header h2 {
   padding: 10px 20px;
   background-color: #9DDAC6;
   color: #fff;
+}
+
+@media screen and (max-width: 480px) {
+  .cerrar {
+    padding: 5px 10px;
+    font-size: 2rem;
+  }
 }
 
 .modal-base {
@@ -499,8 +527,7 @@ button {
 
 @media screen and (max-width: 425px) {
   .turnosContainer .container {
-    padding: 0;
-    font-size: 0.5rem;
+    font-size: 0.7rem;
     width: 100px;
   }
 }
@@ -514,5 +541,11 @@ button {
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: 5px 5px;
+}
+
+@media screen and (max-width: 425px) {
+  .turnosContainer {
+    padding: 20px;
+  }
 }
 /*# sourceMappingURL=estilos.css.map */

@@ -25,6 +25,10 @@ header {
         text-align: center;
         padding: 20px;
         color: $tercero;
+        @media screen and (max-width: $medio){
+            padding: 10px;
+            font-size: 1.3rem;
+        }
     }
 }
 .container {
@@ -53,6 +57,17 @@ header {
     i {
         font-size: 2rem;
         cursor: pointer;
+    }
+    @media screen and (max-width: $medio){
+        font-size: 1rem;
+        padding: 0 60px;
+        h3 {
+            font-size: 1.5rem;
+            padding: 20px;
+        }
+        i{
+            font-size: 1.8rem;
+        }
     }
 }
 .mes {
@@ -162,6 +177,10 @@ header {
     padding: 10px 20px;
     background-color: $sombra;
     color: #fff;
+    @media screen and (max-width: 480px){
+        padding: 5px 10px;
+        font-size: 2rem;
+    }
 }
 .modal-base {
     width: 500px;
@@ -335,8 +354,7 @@ button {
             color: #fff;
         }
         @media screen and (max-width: 425px) {
-            padding: 0;
-            font-size: 0.5rem;
+            font-size: 0.7rem;
             width: 100px;
         }
         div {
@@ -345,5 +363,8 @@ button {
             justify-content: space-between;
             padding: 5px 5px;
         }
+    }
+    @media screen and (max-width: 425px) {
+        padding: 20px;
     }
 }
