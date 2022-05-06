@@ -323,6 +323,7 @@ button {
     min-height: 100vh;
     h5 {
         text-align: center;
+        font-size: 1.5rem;
     }
     i {
         position: absolute;
@@ -346,7 +347,7 @@ button {
     align-items: center;
     justify-content: space-around;
     .container {
-        width: 150px;
+        width: 170px;
         display: flex;
         flex-flow: column nowrap;
         .fecha-hora {
@@ -367,4 +368,10 @@ button {
     @media screen and (max-width: 425px) {
         padding: 20px;
     }
+}
+.totales {
+    display: flex;
+    text-align: center;
+    // justify-content: center;
+    flex-flow: column nowrap;
 }

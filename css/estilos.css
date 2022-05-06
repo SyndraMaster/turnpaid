@@ -468,6 +468,7 @@ button {
 
 .nominaContainer h5 {
   text-align: center;
+  font-size: 1.5rem;
 }
 
 .nominaContainer i {
@@ -510,7 +511,7 @@ button {
 }
 
 .turnosContainer .container {
-  width: 150px;
+  width: 170px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -547,5 +548,16 @@ button {
   .turnosContainer {
     padding: 20px;
   }
+}
+
+.totales {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
 }
 /*# sourceMappingURL=estilos.css.map */

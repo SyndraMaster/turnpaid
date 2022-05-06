@@ -29,8 +29,9 @@ let diafechado = [];
 let diaBuscado = null;
 let terminar = document.querySelector('.terminar');
 let cerrarNomina = document.querySelector('.cerrarNomina');
-let drawPago = document.querySelector('.turnosContainer')
-
+let drawPago = document.querySelector('.turnosContainer');
+let totales = document.querySelector('.totales');
+let guardar = document.querySelector('.confirmar');
 function generarCalendario () {
     fecha.setDate(1);
     let mesActual = fecha.getMonth();
@@ -72,11 +73,6 @@ document.querySelector('.posterior').addEventListener('click', () => {
     generarCalendario();
 })
 
-cerrar.addEventListener('click', () => {
-    modal.classList.remove('modalOpen');
-    agregarJson(turno.value, diafechado)
-    turno.value = '';
-})
 function crEvent (dtFecha) {
     let dia = document.querySelectorAll('.day')
     for (let i = 0; i < dia.length; i++) {
@@ -105,12 +101,21 @@ function openModal () {
 }
 
 function agregarJson (turno, diafechado) {
-    calendario.push({
-        fecha: diafechado.toString(),
-        horario: turno
-    })
+    if(calendario.find(e => e.fecha == diafechado.toString()) != null) {
+        calendario.find(e => e.fecha == diafechado.toString()).horario = turno;
+    }
+    else {
+        calendario.push({
+            fecha: diafechado.toString(),
+            horario: turno
+        })
+    }
+    modal.classList.remove('modalOpen');
 }
 
+cerrar.addEventListener('click', () => {
+    modal.classList.remove('modalOpen');
+})
 
 function turnInit () {
     turnSelect = this;
@@ -150,10 +155,16 @@ terminar.addEventListener('click', () => {
     cerrarNomina.addEventListener('click', () => {
         document.querySelector('.drawNomina').style.display = 'none';
         document.querySelector('.calendar').style.display = "flex";
+        totalDom = 0;
+        totalDomNoc = 0;
+        totalNoc=0;
     })
     document.querySelector('.calendar').style.display = "none";
 })
-
+guardar.addEventListener('click', () => {
+    agregarJson(turno.value, diafechado)
+    turno.value = '';
+})
 
 function consolidarNomina (mes1, mes2) {
     calendario.forEach(e => {
@@ -171,6 +182,8 @@ function consolidarNomina (mes1, mes2) {
         // console.log(fechaNomina.getDay());
         
     })
+    let drawTotales = `<p>Recargos Totales:</p><div>Recargos Nocturnos: ${totalNoc}</div><div>Recargos Dominicales:${totalDom}</div><div>Recargos Dominicales Noc.:${totalDomNoc}</div>`
+    totales.innerHTML = drawTotales
 }
 
 
@@ -186,9 +199,6 @@ function calcNomina (fechaNomina) {
             recargoNocturnos += vrRecNocOr;
             totalNoc += vrRecNocOr;
         }
-        // console.log("Tienes recargo dominical nocturno")
-        
-        // console.log(recargoNocturnos);
     } else {
         if (diaPago == 0) {
             console.log('recargo dominical');
