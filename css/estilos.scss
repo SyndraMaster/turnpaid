@@ -374,4 +374,16 @@ button {
     text-align: center;
     // justify-content: center;
     flex-flow: column nowrap;
+    background-color: #fff;
+    padding: 20px;
+    max-width: 400px;
+    margin: 30px auto;
+}
+.total {
+    display: flex;
+    justify-content: space-between;
+}
+.totalNomina {
+    font-weight: bold;
+    font-size: 1.2rem;
 }

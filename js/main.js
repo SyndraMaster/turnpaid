@@ -1,4 +1,5 @@
 let salarioBase = 1000000;
+let subsidioTransporte = 117172;
 let horaBase = Math.round(salarioBase/240);
 let vrHrExDiOr = Math.round(horaBase * 1.25);
 let vrHrExDiDoFes = Math.round(horaBase * 2);
@@ -110,6 +111,8 @@ function agregarJson (turno, diafechado) {
             horario: turno
         })
     }
+    calendario.sort(function(a, b) { a = new Date(a.fecha); b = new Date(b.fecha); return a>b ? -1 : a<b ? 1 : 0; });
+
     modal.classList.remove('modalOpen');
 }
 
@@ -182,10 +185,14 @@ function consolidarNomina (mes1, mes2) {
         // console.log(fechaNomina.getDay());
         
     })
-    let drawTotales = `<p>Recargos Totales:</p><div>Recargos Nocturnos: ${totalNoc}</div><div>Recargos Dominicales:${totalDom}</div><div>Recargos Dominicales Noc.:${totalDomNoc}</div>`
+    let totalNomina = Intl.NumberFormat('es-IN', {style: 'currency', currency: 'COP', minimumFractionDigits: 0}).format(totalDom + totalDomNoc + totalNoc + salarioBase + subsidioTransporte);
+    let drawTotales = `<p class="totalNomina">Total Nomina: $${totalNomina}</p><div class="total"><p>Salario Base</p><p>$${moneda(salarioBase)}</p></div><div class="total"><p>Subsidio de transporte</p><p>$${moneda(subsidioTransporte)}</p></div><div class="total"><p>Recargos Nocturnos:</p><p>$${moneda(totalNoc)}</p></div><div class="total"><p>Recargos Dominicales:</p><p>$${moneda(totalDom)}</p></div><div class="total"><p>Recargos Dominicales Noc.:</p><p>$${moneda(totalDomNoc)}</p></div>`
     totales.innerHTML = drawTotales
 }
-
+function moneda (dinero) {
+    let resultado = Intl.NumberFormat('es-IN', {style: 'currency', currency: 'COP', minimumFractionDigits: 0}).format(dinero);
+    return resultado
+}
 
 function calcNomina (fechaNomina) {
     let horaPago = fechaNomina.getHours();
