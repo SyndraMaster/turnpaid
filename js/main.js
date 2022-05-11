@@ -176,7 +176,7 @@ function consolidarNomina (mes1, mes2) {
         for (let i = 0; i < 8; i++) {
             calcNomina(fechaNomina)
         }
-        let nomina = `<div class="container"><div class="fecha-hora"><p>${e.fecha}</p><p>${e.horario}</p></div><div><p>Rec. Noc:</p><p>$${recargoNocturnos}</p></div><div><p>Rec. Dom:</p><p>$${recargoDominical}</p></div><div><p>Dom. Noc:</p><p>$${recargoDominicalNoc}</p></div></div>`
+        let nomina = `<div class="container"><div class="fecha-hora"><p>${e.fecha.replace(/,/g, '-')}</p><p>${e.horario}</p></div><div><p>Rec. Noc:</p><p>$${recargoNocturnos}</p></div><div><p>Rec. Dom:</p><p>$${recargoDominical}</p></div><div><p>Dom. Noc:</p><p>$${recargoDominicalNoc}</p></div></div>`
         drawPago.innerHTML += nomina;
         console.log(e.fecha);
         recargoNocturnos = 0
@@ -186,7 +186,7 @@ function consolidarNomina (mes1, mes2) {
         
     })
     let totalNomina = Intl.NumberFormat('es-IN', {style: 'currency', currency: 'COP', minimumFractionDigits: 0}).format(totalDom + totalDomNoc + totalNoc + salarioBase + subsidioTransporte);
-    let drawTotales = `<p class="totalNomina">Total Nomina: $${totalNomina}</p><div class="total"><p>Salario Base</p><p>$${moneda(salarioBase)}</p></div><div class="total"><p>Subsidio de transporte</p><p>$${moneda(subsidioTransporte)}</p></div><div class="total"><p>Recargos Nocturnos:</p><p>$${moneda(totalNoc)}</p></div><div class="total"><p>Recargos Dominicales:</p><p>$${moneda(totalDom)}</p></div><div class="total"><p>Recargos Dominicales Noc.:</p><p>$${moneda(totalDomNoc)}</p></div>`
+    let drawTotales = `<p class="totalNomina">Total Nomina: $${totalNomina}</p><div class="total"><p>Salario Base</p><p>$${moneda(salarioBase)}</p></div><div class="total"><p>Subsidio de transporte</p><p>$${moneda(subsidioTransporte)}</p></div><div class="total"><p>Rec. Nocturnos:</p><p>$${moneda(totalNoc)}</p></div><div class="total"><p>Rec. Dominicales:</p><p>$${moneda(totalDom)}</p></div><div class="total"><p>Rec. Dominicales Noc.:</p><p>$${moneda(totalDomNoc)}</p></div>`
     totales.innerHTML = drawTotales
 }
 function moneda (dinero) {
