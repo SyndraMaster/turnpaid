@@ -1,5 +1,7 @@
 let salarioBase = 1000000;
 let subsidioTransporte = 117172;
+let deduccionAFP = 0;
+let deduccionEPS = 0;
 let horaBase = Math.round(salarioBase/240);
 let vrHrExDiOr = Math.round(horaBase * 1.25);
 let vrHrExDiDoFes = Math.round(horaBase * 2);
@@ -185,8 +187,12 @@ function consolidarNomina (mes1, mes2) {
         // console.log(fechaNomina.getDay());
         
     })
-    let totalNomina = Intl.NumberFormat('es-IN', {style: 'currency', currency: 'COP', minimumFractionDigits: 0}).format(totalDom + totalDomNoc + totalNoc + salarioBase + subsidioTransporte);
-    let drawTotales = `<p class="totalNomina">Total Nomina: $${totalNomina}</p><div class="total"><p>Salario Base</p><p>$${moneda(salarioBase)}</p></div><div class="total"><p>Subsidio de transporte</p><p>$${moneda(subsidioTransporte)}</p></div><div class="total"><p>Rec. Nocturnos:</p><p>$${moneda(totalNoc)}</p></div><div class="total"><p>Rec. Dominicales:</p><p>$${moneda(totalDom)}</p></div><div class="total"><p>Rec. Dominicales Noc.:</p><p>$${moneda(totalDomNoc)}</p></div>`
+    let numeroNomina = totalDom + totalDomNoc + totalNoc + salarioBase + subsidioTransporte;
+    deduccionEPS = (numeroNomina-subsidioTransporte) * 0.04;
+    deduccionAFP = (numeroNomina-subsidioTransporte) * 0.04;
+    numeroNomina = (numeroNomina) - (deduccionAFP + deduccionEPS);
+    let salarioNeto = numeroNomina - deduccionAFP - deduccionEPS
+    let drawTotales = `<p class="totalNomina">Total Nomina: $${moneda(Math.round(salarioNeto))}</p><div class="total"><p>Salario Base</p><p>$${moneda(salarioBase)}</p></div><div class="total"><p>Subsidio de transporte</p><p>$${moneda(subsidioTransporte)}</p></div><div class="total"><p>Rec. Nocturnos:</p><p>$${moneda(totalNoc)}</p></div><div class="total"><p>Rec. Dominicales:</p><p>$${moneda(totalDom)}</p></div><div class="total"><p>Rec. Dominicales Noc.:</p><p>$${moneda(totalDomNoc)}</p></div><div class="total"><p>Deducción EPS:</p><p>-$${moneda(Math.round(deduccionEPS))}</p></div><div class="total"><p>Deducción AFP:</p><p>-$${moneda(Math.round(deduccionAFP))}</p></div>`
     totales.innerHTML = drawTotales
 }
 function moneda (dinero) {
