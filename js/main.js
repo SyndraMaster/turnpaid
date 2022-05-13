@@ -67,6 +67,7 @@ function generarCalendario () {
     }
     recuperarFechas();
     crEvent(dtFecha);
+    cambiarEsquema()
 }
 document.querySelector('.previo').addEventListener('click', () => {
     fecha.setMonth(fecha.getMonth() - 1);
@@ -225,36 +226,38 @@ function calcNomina (fechaNomina) {
 }
 
 generarCalendario();
-let esquemaColorBack = document.querySelectorAll('h1, .mes-head, .day-container, .modal-titulo, .confirmar');
-let puestoTrabajo = document.querySelectorAll('.rol')
-for (let i = 0; i < puestoTrabajo.length; i++) {
-    const element = puestoTrabajo[i];
-    element.addEventListener('click', iniciarCambio)
-}
-
-
-function iniciarCambio () {
-    selected = this;
-    cambiarPuesto(selected)
-}
-
-function cambiarPuesto (selected) {
+function cambiarEsquema() {
+    let esquemaColorBack = document.querySelectorAll('h1, .mes-head, .day-container, .modal-titulo, .confirmar');
+    let puestoTrabajo = document.querySelectorAll('.rol')
     for (let i = 0; i < puestoTrabajo.length; i++) {
         const element = puestoTrabajo[i];
-        element.classList.remove('active')
+        element.addEventListener('click', iniciarCambio)
     }
-    selected.classList.add('active');
-    for (let i = 0; i < esquemaColorBack.length; i++) {
-        esquemaColorBack[i].style.backgroundColor = getComputedStyle(selected).backgroundColor;
+
+
+    function iniciarCambio () {
+        selected = this;
+        cambiarPuesto(selected)
     }
-    switch (selected.textContent) {
-        case 'Supervisor':
-            salarioBase = 1900000;
+
+    function cambiarPuesto (selected) {
+        for (let i = 0; i < puestoTrabajo.length; i++) {
+            const element = puestoTrabajo[i];
+            element.classList.remove('active')
+        }
+        selected.classList.add('active');
+        for (let i = 0; i < esquemaColorBack.length; i++) {
+            esquemaColorBack[i].style.backgroundColor = getComputedStyle(selected).backgroundColor;
+        }
+        switch (selected.textContent) {
+            case 'Supervisor':
+                salarioBase = 1900000;
+                break;
+            case 'Conductor'  :
+                salarioBase = 1150000  
+            default:
+            salarioBase = 1000000
             break;
-        case 'Conductor'  :
-            salarioBase = 1150000  
-        default:
-        salarioBase = 1000000
-        break;
+        }
     }
 }
