@@ -20,6 +20,7 @@ let totalNoc = 0
 /////////////////////////////////////////////////////
 let seleccionTurno = document.getElementsByClassName('pre-turno');
 let clicked = null;
+let selected = null;
 let fecha = new Date()
 let contenedor = null;
 let turnSelect = null;
@@ -190,7 +191,7 @@ function consolidarNomina (mes1, mes2) {
     let numeroNomina = totalDom + totalDomNoc + totalNoc + salarioBase + subsidioTransporte;
     deduccionEPS = (numeroNomina-subsidioTransporte) * 0.04;
     deduccionAFP = (numeroNomina-subsidioTransporte) * 0.04;
-    numeroNomina = (numeroNomina) - (deduccionAFP + deduccionEPS);
+    numeroNomina = numeroNomina - deduccionAFP + deduccionEPS;
     let salarioNeto = numeroNomina - deduccionAFP - deduccionEPS
     let drawTotales = `<p class="totalNomina">Total Nomina: $${moneda(Math.round(salarioNeto))}</p><div class="total"><p>Salario Base</p><p>$${moneda(salarioBase)}</p></div><div class="total"><p>Subsidio de transporte</p><p>$${moneda(subsidioTransporte)}</p></div><div class="total"><p>Rec. Nocturnos:</p><p>$${moneda(totalNoc)}</p></div><div class="total"><p>Rec. Dominicales:</p><p>$${moneda(totalDom)}</p></div><div class="total"><p>Rec. Dominicales Noc.:</p><p>$${moneda(totalDomNoc)}</p></div><div class="total"><p>Deducción EPS:</p><p>-$${moneda(Math.round(deduccionEPS))}</p></div><div class="total"><p>Deducción AFP:</p><p>-$${moneda(Math.round(deduccionAFP))}</p></div>`
     totales.innerHTML = drawTotales
@@ -222,4 +223,38 @@ function calcNomina (fechaNomina) {
     }
     fechaNomina.setTime(fechaNomina.getTime() + 1 * 60 * 60 * 1000);
 }
+
 generarCalendario();
+let esquemaColorBack = document.querySelectorAll('h1, .mes-head, .day-container, .modal-titulo, .confirmar');
+let puestoTrabajo = document.querySelectorAll('.rol')
+for (let i = 0; i < puestoTrabajo.length; i++) {
+    const element = puestoTrabajo[i];
+    element.addEventListener('click', iniciarCambio)
+}
+
+
+function iniciarCambio () {
+    selected = this;
+    cambiarPuesto(selected)
+}
+
+function cambiarPuesto (selected) {
+    for (let i = 0; i < puestoTrabajo.length; i++) {
+        const element = puestoTrabajo[i];
+        element.classList.remove('active')
+    }
+    selected.classList.add('active');
+    for (let i = 0; i < esquemaColorBack.length; i++) {
+        esquemaColorBack[i].style.backgroundColor = getComputedStyle(selected).backgroundColor;
+    }
+    switch (selected.textContent) {
+        case 'Supervisor':
+            salarioBase = 1900000;
+            break;
+        case 'Conductor'  :
+            salarioBase = 1150000  
+        default:
+        salarioBase = 1000000
+        break;
+    }
+}

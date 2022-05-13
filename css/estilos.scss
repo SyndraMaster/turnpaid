@@ -11,6 +11,8 @@ $principal: #8ebb37;
 $contraste: #FFD371;
 $tercero: #1a3072;
 $sombra: #9DDAC6;
+$principalSuper: #e47b25;
+$principalCon: #c7e785;
 
 header {
     width: 100%;
@@ -30,6 +32,36 @@ header {
             font-size: 1.3rem;
         }
     }
+}
+.selectRol {
+    display: flex;
+    margin: auto;
+    width: 400px;
+    justify-content: space-between;
+    .rol {
+        cursor: pointer;
+        width: 130px;
+        text-align: center;
+        padding: 10px 20px;
+        background-color: #d3d3d3;
+        margin-bottom: 20px;
+        &.rol-Oper.active{
+            background-color: $principal;
+            font-weight: bold;
+            color: #fff;
+        }
+        &.rol-Super.active{
+            background-color: $principalSuper;
+            font-weight: bold;
+            color: #fff;
+        }
+        &.rol-Con.active{
+            background-color: $principalCon;
+            font-weight: bold;
+            color: #fff;
+        }
+    }
+
 }
 .container {
     display: flex;
