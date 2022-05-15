@@ -2,14 +2,14 @@ let salarioBase = 1000000;
 let subsidioTransporte = 117172;
 let deduccionAFP = 0;
 let deduccionEPS = 0;
-let horaBase = Math.round(salarioBase/240);
-let vrHrExDiOr = Math.round(horaBase * 1.25);
-let vrHrExDiDoFes = Math.round(horaBase * 2);
-let vrHrExNocOr = Math.round(horaBase * 1.75);
-let vrHrExNocFoFes = Math.round(horaBase * 2.5);
-let vrRecNocOr = Math.round(horaBase * 0.35);
-let vrRecNocDoFes = Math.round(horaBase * 1.1);
-let vrRecDom = Math.round(horaBase * 0.75);
+let horaBase = 0;
+let vrHrExDiOr = 0;
+let vrHrExDiDoFes = 0;
+let vrHrExNocOr = 0;
+let vrHrExNocFoFes = 0;
+let vrRecNocOr = 0;
+let vrRecNocDoFes = 0;
+let vrRecDom = 0;
 let horasNormales = 0;
 let recargoDominical = 0;
 let recargoDominicalNoc = 0;
@@ -175,6 +175,14 @@ guardar.addEventListener('click', () => {
 })
 
 function consolidarNomina (mes1, mes2) {
+    horaBase = Math.round(salarioBase/240);
+    vrHrExDiOr = Math.round(horaBase * 1.25);
+    vrHrExDiDoFes = Math.round(horaBase * 2);
+    vrHrExNocOr = Math.round(horaBase * 1.75);
+    vrHrExNocFoFes = Math.round(horaBase * 2.5);
+    vrRecNocOr = Math.round(horaBase * 0.35);
+    vrRecNocDoFes = Math.round(horaBase * 1.1);
+    vrRecDom = Math.round(horaBase * 0.75);
     calendario.forEach(e => {
         // console.log(e.horario)
         let fechaNomina = new Date(e.fecha + ',' + e.horario)
