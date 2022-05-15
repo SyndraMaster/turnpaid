@@ -64,9 +64,18 @@ header h2 {
 }
 
 .selectRol .rol.rol-Con.active {
-  background-color: #c7e785;
+  background-color: #3a73df;
   font-weight: bold;
   color: #fff;
+}
+
+@media screen and (max-width: 390px) {
+  .selectRol {
+    width: 100%;
+  }
+  .selectRol .rol {
+    width: 33%;
+  }
 }
 
 .container {
@@ -214,7 +223,7 @@ header h2 {
   height: 50px;
   margin-bottom: 5px;
   background-color: #8ebb37;
-  opacity: 0.8;
+  opacity: 0.4;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -229,8 +238,7 @@ header h2 {
 }
 
 .dias-mes .day-container.fulled {
-  background-color: #f7f7f7;
-  color: #8ebb37;
+  color: #fff;
   opacity: 1;
 }
 
@@ -370,7 +378,6 @@ input[type=time] {
   font-size: 2rem;
   font-weight: bold;
   background-color: #1a3072;
-  margin-bottom: 50px;
   color: #fff;
 }
 
@@ -392,16 +399,17 @@ input[type=time]::after {
   display: flex;
   width: 80%;
   height: 200px;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-flow: column wrap;
-          flex-flow: column wrap;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-bottom: 20px;
 }
 
 .turnos .pre-turno {

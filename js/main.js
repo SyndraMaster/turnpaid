@@ -22,6 +22,7 @@ let seleccionTurno = document.getElementsByClassName('pre-turno');
 let clicked = null;
 let selected = null;
 let fecha = new Date()
+let currentColor = ''
 let contenedor = null;
 let turnSelect = null;
 let dia = null;
@@ -58,7 +59,7 @@ function generarCalendario () {
       days += `<div class='prev-days'><p>${ultDiaMesPrevio - x + 1}</p></div>`;
     }
     for (let i = 1; i <= diasTotalesMes; i++) {
-        days += `<div class="day" id="a${anoActual}_${mesActual + 1}_${i}"><p>${i}</p><div class="day-container"></div></div>`;
+        days += `<div class="day" id="a${anoActual}_${mesActual + 1}_${i}"><p>${i}</p><div class="day-container" style="background-color: rgb(${currentColor}"></div></div>`;
         diasMes.innerHTML = days;          
         }
     for (let j = 0; j < siguientesDias; j++) {
@@ -142,11 +143,11 @@ function recuperarFechas () {
         
     }
     
-    function reescribirFecha (element) {
-        let arreglo = '#a' + element.fecha.replace(/,/g, '_');
-        diaBuscado = document.querySelector(`${arreglo}`);
-        if (diaBuscado != null) {
-            diaBuscado.lastChild.textContent = element.horario;
+function reescribirFecha (element) {
+    let arreglo = '#a' + element.fecha.replace(/,/g, '_');
+    diaBuscado = document.querySelector(`${arreglo}`);
+    if (diaBuscado != null) {
+        diaBuscado.lastChild.textContent = element.horario;
         diaBuscado.lastChild.classList.add('fulled')
     }
 }
@@ -247,17 +248,19 @@ function cambiarEsquema() {
         }
         selected.classList.add('active');
         for (let i = 0; i < esquemaColorBack.length; i++) {
-            esquemaColorBack[i].style.backgroundColor = getComputedStyle(selected).backgroundColor;
+            currentColor = getComputedStyle(selected).backgroundColor;
+            esquemaColorBack[i].style.backgroundColor = currentColor;
         }
         switch (selected.textContent) {
             case 'Supervisor':
-                salarioBase = 1900000;
+                salarioBase = 1591335;
                 break;
-            case 'Conductor'  :
+            case 'Conductor':
                 salarioBase = 1150000  
+                break;
             default:
-            salarioBase = 1000000
-            break;
+                salarioBase = 1000000
+                break;
         }
     }
 }
