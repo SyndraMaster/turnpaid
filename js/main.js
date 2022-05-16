@@ -17,12 +17,14 @@ let recargoNocturnos = 0;
 let totalDom = 0;
 let totalDomNoc = 0
 let totalNoc = 0
+let totalExtraDom, totalExtraDomNoc, totalExtraNoc, totalOrdinaria = 0;
+let extraOrdinaria, extraDominicales, extrasDominicalesNoc, extrasNocturnas = 0;
 /////////////////////////////////////////////////////
 let seleccionTurno = document.getElementsByClassName('pre-turno');
 let clicked = null;
 let selected = null;
 let fecha = new Date()
-let currentColor = ''
+let currentColor = '';
 let contenedor = null;
 let turnSelect = null;
 let dia = null;
@@ -30,6 +32,7 @@ let calendario =[];
 let modal = document.querySelector('.modal');
 let cerrar = document.querySelector('.cerrar');
 let turno = document.querySelector('#turno');
+let horaExtras = 0;
 let diafechado = [];
 let diaBuscado = null;
 let terminar = document.querySelector('.terminar');
@@ -37,6 +40,8 @@ let cerrarNomina = document.querySelector('.cerrarNomina');
 let drawPago = document.querySelector('.turnosContainer');
 let totales = document.querySelector('.totales');
 let guardar = document.querySelector('.confirmar');
+
+
 function generarCalendario () {
     fecha.setDate(1);
     let mesActual = fecha.getMonth();
@@ -66,14 +71,19 @@ function generarCalendario () {
         days += `<div class='post-days'><p>${j + 1}</div>`;
         diasMes.innerHTML = days;
     }
+    
     recuperarFechas();
     crEvent(dtFecha);
     cambiarEsquema()
 }
+
+
 document.querySelector('.previo').addEventListener('click', () => {
     fecha.setMonth(fecha.getMonth() - 1);
     generarCalendario();
 })
+
+
 document.querySelector('.posterior').addEventListener('click', () => {
     fecha.setMonth(fecha.getMonth() + 1);
     generarCalendario();
@@ -98,6 +108,7 @@ function evento (clicked, dtFecha) {
     contenedor.classList.add('fulled');
     openModal(diafechado);
 }
+selecthe()
 
 function openModal () {
     modal.classList.add("modalOpen");
@@ -106,14 +117,44 @@ function openModal () {
     }
 }
 
+function turnInit () {
+    turnSelect = this;
+    changeTurn(turnSelect);
+}
+
+function changeTurn (turnSelect) {
+    turno.value = turnSelect.textContent;
+    console.log(horaExtras)
+    // contenedor.textContent = turno.value + '-' + horaExtras;
+    // recuperarFechas();
+}
+function selecthe () {
+    document.querySelector('.plus0').addEventListener('click', () => {
+        horaExtras = 0;
+        recuperarFechas()
+        console.log(horaExtras)
+    })
+    document.querySelector('.plus1').addEventListener('click', () => {
+        horaExtras = 1;
+        recuperarFechas()
+        console.log(horaExtras)
+    })
+    document.querySelector('.plus2').addEventListener('click', () => {
+        horaExtras = 2;
+        recuperarFechas()
+        console.log(horaExtras)
+    })
+}
 function agregarJson (turno, diafechado) {
     if(calendario.find(e => e.fecha == diafechado.toString()) != null) {
         calendario.find(e => e.fecha == diafechado.toString()).horario = turno;
+        calendario.find(e => e.fecha == diafechado.toString()).horaExtras = horaExtras;
     }
     else {
         calendario.push({
             fecha: diafechado.toString(),
-            horario: turno
+            horario: turno,
+            horaExtras: horaExtras
         })
     }
     calendario.sort(function(a, b) { a = new Date(a.fecha); b = new Date(b.fecha); return a>b ? -1 : a<b ? 1 : 0; });
@@ -125,40 +166,36 @@ cerrar.addEventListener('click', () => {
     modal.classList.remove('modalOpen');
 })
 
-function turnInit () {
-    turnSelect = this;
-    changeTurn(turnSelect);
-}
 
 
-function changeTurn (turnSelect) {
-    turno.value = turnSelect.textContent;
-    contenedor.textContent = turno.value;
-}
 
 function recuperarFechas () {
     calendario.forEach(e => 
         reescribirFecha(e)
         );
-        
     }
-    
+
 function reescribirFecha (element) {
     let arreglo = '#a' + element.fecha.replace(/,/g, '_');
     diaBuscado = document.querySelector(`${arreglo}`);
     if (diaBuscado != null) {
-        diaBuscado.lastChild.textContent = element.horario;
+        if(element.horaExtras != 0) {
+            diaBuscado.lastChild.textContent = element.horario + " + " +element.horaExtras;
+        } else {
+            diaBuscado.lastChild.textContent = element.horario;
+
+        }
+        
         diaBuscado.lastChild.classList.add('fulled')
     }
 }
+
+
 terminar.addEventListener('click', () => {
     let mesAnterior = fecha.getMonth();
     let mesActual = fecha.getMonth() + 1
     drawPago.innerHTML = ''
     consolidarNomina(mesAnterior, mesActual)
-    console.log(totalNoc);
-    console.log(totalDom);
-    console.log(totalDomNoc);
     document.querySelector('.drawNomina').style.display = 'flex'
     cerrarNomina.addEventListener('click', () => {
         document.querySelector('.drawNomina').style.display = 'none';
@@ -169,10 +206,14 @@ terminar.addEventListener('click', () => {
     })
     document.querySelector('.calendar').style.display = "none";
 })
+
 guardar.addEventListener('click', () => {
-    agregarJson(turno.value, diafechado)
+    agregarJson(turno.value, diafechado, horaExtras)
+    recuperarFechas();
     turno.value = '';
+    horaExtras = 0;
 })
+
 
 function consolidarNomina (mes1, mes2) {
     horaBase = Math.round(salarioBase/240);
@@ -186,15 +227,19 @@ function consolidarNomina (mes1, mes2) {
     calendario.forEach(e => {
         // console.log(e.horario)
         let fechaNomina = new Date(e.fecha + ',' + e.horario)
+        
         for (let i = 0; i < 8; i++) {
             calcNomina(fechaNomina)
         }
+        for (let i = 0; i < e.horaExtras; i++) {
+            calcExtras(fechaNomina)
+        }
         let nomina = `<div class="container"><div class="fecha-hora"><p>${e.fecha.replace(/,/g, '-')}</p><p>${e.horario}</p></div><div><p>Rec. Noc:</p><p>$${recargoNocturnos}</p></div><div><p>Rec. Dom:</p><p>$${recargoDominical}</p></div><div><p>Dom. Noc:</p><p>$${recargoDominicalNoc}</p></div></div>`
         drawPago.innerHTML += nomina;
-        console.log(e.fecha);
         recargoNocturnos = 0
         recargoDominicalNoc = 0
         recargoDominical = 0
+        horaExtras = 0;
         // console.log(fechaNomina.getDay());
         
     })
@@ -210,7 +255,34 @@ function moneda (dinero) {
     let resultado = Intl.NumberFormat('es-IN', {style: 'currency', currency: 'COP', minimumFractionDigits: 0}).format(dinero);
     return resultado
 }
-
+function calcExtras (fechaNomina) {
+    let horaPago = fechaNomina.getHours();
+    let diaPago = fechaNomina.getDay();
+    console.log(horaPago + ' hora extra');
+    if (horaPago >= 21 || horaPago <= 5) {
+        if (diaPago == 0) {
+            console.log('Hora extra dominical nocturna');
+            extrasDominicalesNoc += vrHrExNocFoFes;
+            totalExtraDomNoc += vrHrExNocFoFes;
+            console.log(vrHrExNocFoFes)
+        } else {
+            console.log('Hora extra nocturna');
+            extrasNocturnas += vrHrExNocOr;
+            totalExtraNoc += vrHrExNocOr;
+        }
+    } else {
+        if (diaPago == 0) {
+            console.log('hora extra dominical');
+            extraDominicales += vrHrExDiDoFes;
+            totalExtraDom += vrHrExDiDoFes;
+        } else {
+            extraOrdinaria += vrHrExDiOr
+            totalOrdinaria += vrHrExDiOr
+            console.log('Hora extra diurna ordinaria');
+        }
+    }
+    fechaNomina.setTime(fechaNomina.getTime() + 1 * 60 * 60 * 1000);
+}
 function calcNomina (fechaNomina) {
     let horaPago = fechaNomina.getHours();
     let diaPago = fechaNomina.getDay();
@@ -226,15 +298,16 @@ function calcNomina (fechaNomina) {
     } else {
         if (diaPago == 0) {
             console.log('recargo dominical');
-            console.log(recargoDominical);
             recargoDominical += vrRecDom;
             totalDom += vrRecDom;
         }
     }
+    console.log(horaPago + ' hora ordinaria')
     fechaNomina.setTime(fechaNomina.getTime() + 1 * 60 * 60 * 1000);
 }
 
 generarCalendario();
+
 function cambiarEsquema() {
     let esquemaColorBack = document.querySelectorAll('h1, .mes-head, .day-container, .modal-titulo, .confirmar');
     let puestoTrabajo = document.querySelectorAll('.rol')

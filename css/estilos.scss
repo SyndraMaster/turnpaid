@@ -283,7 +283,7 @@ input[type=time] {
     flex-flow: row wrap;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     .pre-turno {
         display: block;
         font-size: 1.2rem;
@@ -307,6 +307,20 @@ input[type=time] {
     }
     @media screen and (max-width: 480px){
         width: 100%;
+    }
+}
+.horas-extra {
+    display: flex;
+    .hora-ex {
+        cursor: pointer;
+        padding: 5px 25px;
+        background-color: #09bdca;
+        border-radius: 6px;
+        font-weight: bold;
+        font-size: 1.2rem;
+        margin: 0 10px 20px 10px;
+        color: #fff;
+        // margin-bottom: 20px;
     }
 }
 .enviar {
