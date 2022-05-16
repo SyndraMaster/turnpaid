@@ -225,7 +225,6 @@ function consolidarNomina (mes1, mes2) {
     vrRecNocDoFes = Math.round(horaBase * 1.1);
     vrRecDom = Math.round(horaBase * 0.75);
     calendario.forEach(e => {
-        // console.log(e.horario)
         let fechaNomina = new Date(e.fecha + ',' + e.horario)
         
         for (let i = 0; i < 8; i++) {
@@ -240,7 +239,6 @@ function consolidarNomina (mes1, mes2) {
         recargoDominicalNoc = 0
         recargoDominical = 0
         horaExtras = 0;
-        // console.log(fechaNomina.getDay());
         
     })
     let numeroNomina = totalDom + totalDomNoc + totalNoc + salarioBase + subsidioTransporte;
