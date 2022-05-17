@@ -1,4 +1,5 @@
 let salarioBase = 1000000;
+let horasPlus = document.getElementsByClassName('hora-ex');
 let subsidioTransporte = 117172;
 let deduccionAFP = 0;
 let deduccionEPS = 0;
@@ -129,20 +130,31 @@ function changeTurn (turnSelect) {
     // recuperarFechas();
 }
 function selecthe () {
+    let horaSelect = null;
+    for (let i = 0; i < horasPlus.length; i++) {
+        horasPlus[i].addEventListener('click', initHoras)
+    }
+    function initHoras () {
+        horaSelect = this;
+        cambiarFondoHe(horaSelect);
+    }
+    function cambiarFondoHe (elemento) {
+        for (let i = 0; i < horasPlus.length; i++) {
+            horasPlus[i].classList.remove('active');
+        }
+        elemento.classList.add('active')
+    }
     document.querySelector('.plus0').addEventListener('click', () => {
         horaExtras = 0;
         recuperarFechas()
-        console.log(horaExtras)
     })
     document.querySelector('.plus1').addEventListener('click', () => {
         horaExtras = 1;
         recuperarFechas()
-        console.log(horaExtras)
     })
     document.querySelector('.plus2').addEventListener('click', () => {
         horaExtras = 2;
         recuperarFechas()
-        console.log(horaExtras)
     })
 }
 function agregarJson (turno, diafechado) {
@@ -165,9 +177,6 @@ function agregarJson (turno, diafechado) {
 cerrar.addEventListener('click', () => {
     modal.classList.remove('modalOpen');
 })
-
-
-
 
 function recuperarFechas () {
     calendario.forEach(e => 
@@ -212,6 +221,10 @@ guardar.addEventListener('click', () => {
     recuperarFechas();
     turno.value = '';
     horaExtras = 0;
+    for (let i = 0; i < horasPlus.length; i++) {
+        horasPlus[i].classList.remove('active');
+    }
+    
 })
 
 
@@ -256,27 +269,22 @@ function moneda (dinero) {
 function calcExtras (fechaNomina) {
     let horaPago = fechaNomina.getHours();
     let diaPago = fechaNomina.getDay();
-    console.log(horaPago + ' hora extra');
     if (horaPago >= 21 || horaPago <= 5) {
         if (diaPago == 0) {
-            console.log('Hora extra dominical nocturna');
             extrasDominicalesNoc += vrHrExNocFoFes;
             totalExtraDomNoc += vrHrExNocFoFes;
             console.log(vrHrExNocFoFes)
         } else {
-            console.log('Hora extra nocturna');
             extrasNocturnas += vrHrExNocOr;
             totalExtraNoc += vrHrExNocOr;
         }
     } else {
         if (diaPago == 0) {
-            console.log('hora extra dominical');
             extraDominicales += vrHrExDiDoFes;
             totalExtraDom += vrHrExDiDoFes;
         } else {
             extraOrdinaria += vrHrExDiOr
             totalOrdinaria += vrHrExDiOr
-            console.log('Hora extra diurna ordinaria');
         }
     }
     fechaNomina.setTime(fechaNomina.getTime() + 1 * 60 * 60 * 1000);
@@ -286,7 +294,6 @@ function calcNomina (fechaNomina) {
     let diaPago = fechaNomina.getDay();
     if (horaPago >= 21 || horaPago <= 5) {
         if (diaPago == 0) {
-            console.log('Nocturna dominical');
             recargoDominicalNoc += vrRecNocDoFes;
             totalDomNoc += vrRecNocDoFes;
         } else {
@@ -295,12 +302,10 @@ function calcNomina (fechaNomina) {
         }
     } else {
         if (diaPago == 0) {
-            console.log('recargo dominical');
             recargoDominical += vrRecDom;
             totalDom += vrRecDom;
         }
     }
-    console.log(horaPago + ' hora ordinaria')
     fechaNomina.setTime(fechaNomina.getTime() + 1 * 60 * 60 * 1000);
 }
 
