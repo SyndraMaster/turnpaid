@@ -5,6 +5,7 @@ let deduccionAFP = 0;
 let deduccionEPS = 0, horaBase = 0, vrHrExDiOr = 0, vrHrExDiDoFes = 0, vrHrExNocOr = 0, vrHrExNocFoFes = 0, vrRecNocOr = 0, vrRecNocDoFes = 0, vrRecDom = 0, horasNormales = 0, recargoDominical = 0, recargoDominicalNoc = 0, recargoNocturnos = 0, totalDom = 0, totalDomNoc = 0, totalNoc = 0;
 let totalExtraDom = 0, totalExtraDomNoc = 0, totalExtraNoc = 0, totalOrdinaria = 0, extraOrdinaria = 0;
 let extraDominicales = 0, extrasDominicalesNoc = 0, extrasNocturnas = 0;
+let horasXDomNoc = 0, horasXNoc = 0, horasXDom = 0, horasXOrd = 0;
 /////////////////////////////////////////////////////
 let seleccionTurno = document.getElementsByClassName('pre-turno');
 let clicked = null;
@@ -197,6 +198,7 @@ terminar.addEventListener('click', () => {
         totalExtraDom = 0;
         totalExtraNoc = 0;
         totalExtraDomNoc = 0;
+        horasXDom = 0, horasXDomNoc = 0, horasXOrd = 0, horasXNoc = 0;
     })
     document.querySelector('.calendar').style.display = "none";
 })
@@ -209,7 +211,6 @@ guardar.addEventListener('click', () => {
     for (let i = 0; i < horasPlus.length; i++) {
         horasPlus[i].classList.remove('active');
     }
-    
 })
 
 
@@ -237,7 +238,7 @@ function consolidarNomina (mes1, mes2) {
         for (let i = 0; i < e.horaExtras * 4; i++) {
             calcExtras(fechaNomina);
         }
-        let nomina = `<div class="container"><div class="fecha-hora"><p>${e.fecha.replace(/,/g, '-')}</p><p>${e.horario}</p></div><div><p>Rec. Noc:</p><p>$${recargoNocturnos}</p></div><div><p>Rec. Dom:</p><p>$${recargoDominical}</p></div><div><p>Dom. Noc:</p><p>$${recargoDominicalNoc}</p></div></div>`
+        let nomina = `<div class="container"><div class="fecha-hora"><p>${e.fecha.replace(/,/g, '-')}</p><p>${e.horario}(${e.horaExtras})</p></div><div><p>Rec. Noc:</p><p>$${recargoNocturnos}</p></div><div><p>Rec. Dom:</p><p>$${recargoDominical}</p></div><div><p>Dom. Noc:</p><p>$${recargoDominicalNoc}</p></div></div>`
         drawPago.innerHTML += nomina;
         extrasDominicalesNoc = 0;
         extrasNocturnas = 0;
@@ -247,9 +248,8 @@ function consolidarNomina (mes1, mes2) {
         recargoDominicalNoc = 0;
         recargoDominical = 0;
         horaExtras = 0;
-        
     })
-    let numeroNomina = totalDom + totalDomNoc + totalNoc + salarioBase + subsidioTransporte;
+    let numeroNomina = totalDom + totalDomNoc + totalNoc + salarioBase + subsidioTransporte + totalOrdinaria + totalExtraNoc + totalExtraDom + totalExtraDomNoc;
     deduccionEPS = (numeroNomina-subsidioTransporte) * 0.04;
     deduccionAFP = (numeroNomina-subsidioTransporte) * 0.04;
     numeroNomina = numeroNomina - deduccionAFP + deduccionEPS;
@@ -257,25 +257,25 @@ function consolidarNomina (mes1, mes2) {
     let drawTotales = `<p class="totalNomina">Total Nomina: $${moneda(Math.round(salarioNeto))}</p><div class="total"><p>Salario Base</p><p>$${moneda(salarioBase)}</p></div><div class="total"><p>Subsidio de transporte</p><p>$${moneda(subsidioTransporte)}</p></div><div class="total"><p>Rec. Nocturnos:</p><p>$${moneda(totalNoc)}</p></div><div class="total"><p>Rec. Dominicales:</p><p>$${moneda(totalDom)}</p></div><div class="total"><p>Rec. Dominicales Noc.:</p><p>$${moneda(totalDomNoc)}</p></div><div class="total"><p>Deducción EPS:</p><p>-$${moneda(Math.round(deduccionEPS))}</p></div><div class="total"><p>Deducción AFP:</p><p>-$${moneda(Math.round(deduccionAFP))}</p></div>`
     totales.innerHTML = drawTotales
     if (totalOrdinaria > 0) {
-        agregarHora(totales, 'Total HE Ordinaria', totalOrdinaria, 'totalHEOrd');
+        agregarHora(totales, 'Total HE Ordinaria', totalOrdinaria, 'totalHEOrd', horasXOrd);
     }
     if (totalExtraNoc > 0) {
-        agregarHora(totales, 'Total HE Noc.', totalExtraNoc, 'totalHENoc');
+        agregarHora(totales, 'Total HE Noc.', totalExtraNoc, 'totalHENoc', horasXNoc);
     }
     if (totalExtraDom > 0) {
-        agregarHora(totales, 'Total HE Dom. Or.', totalExtraDom, 'totalHEDom');
+        agregarHora(totales, 'Total HE Dom. Or.', totalExtraDom, 'totalHEDom', horasXDom);
     }
     if (totalExtraDomNoc > 0) {
-        agregarHora(totales, 'Total HE Dom. Noc.', totalExtraDomNoc, 'totalHEDomNoc');
+        agregarHora(totales, 'Total HE Dom. Noc.', totalExtraDomNoc, 'totalHEDomNoc', horasXDomNoc);
     }
 }
-function agregarHora (elementoPadre, hora, valorHora, clase) {
+function agregarHora (elementoPadre, hora, valorHora, clase, numeroHoras) {
     let elemento = document.createElement('div');
     let elemento2 = document.createElement('p');
     let valorHorac = document.createElement('p');
     elemento.classList.add('total')
     elemento2.classList.add(clase)
-    elemento2.innerHTML=`${hora}: `
+    elemento2.innerHTML=`${hora}: (${numeroHoras})`
     valorHorac.innerHTML=`$${moneda(Math.round(valorHora))}`;
     elemento.appendChild(elemento2);
     elemento.appendChild(valorHorac);
@@ -292,21 +292,21 @@ function calcExtras (fechaNomina) {
         if (diaPago == 0) {
             extrasDominicalesNoc += vrHrExNocFoFes / 4;
             totalExtraDomNoc += vrHrExNocFoFes / 4;
-            
-            console.log(totalExtraDomNoc)
+            horasXDomNoc += 0.25;
         } else {
             extrasNocturnas += vrHrExNocOr / 4;
             totalExtraNoc += vrHrExNocOr / 4;
-            console.log(totalExtraNoc);
+            horasXNoc += 0.25;
         }
     } else {
         if (diaPago == 0) {
             extraDominicales += vrHrExDiDoFes / 4 ;
             totalExtraDom += vrHrExDiDoFes / 4;
+            horasXDom += 0.25;
         } else {
             extraOrdinaria += vrHrExDiOr / 4;
             totalOrdinaria += vrHrExDiOr / 4;
-            console.log('Total Ordinaria:' + totalOrdinaria)
+            horasXOrd += 0.25;
         }
     }
     fechaNomina.setTime(fechaNomina.getTime() + 15 * 60 * 1000);

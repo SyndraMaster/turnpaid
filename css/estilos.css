@@ -587,7 +587,7 @@ button {
 }
 
 .turnosContainer .container {
-  width: 170px;
+  width: 180px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -606,6 +606,9 @@ button {
   .turnosContainer .container {
     font-size: 0.7rem;
     width: 100px;
+  }
+  .turnosContainer .container .fecha-hora {
+    font-size: 0.6rem;
   }
 }
 

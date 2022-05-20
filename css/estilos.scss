@@ -407,7 +407,7 @@ button {
     align-items: center;
     justify-content: space-around;
     .container {
-        width: 170px;
+        width: 180px;
         display: flex;
         flex-flow: column nowrap;
         .fecha-hora {
@@ -417,6 +417,9 @@ button {
         @media screen and (max-width: 425px) {
             font-size: 0.7rem;
             width: 100px;
+            .fecha-hora {
+                font-size: 0.6rem;
+            }
         }
         div {
             width: 100%;
