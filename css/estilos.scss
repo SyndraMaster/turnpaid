@@ -304,10 +304,6 @@ input[type="time"]::-webkit-calendar-picker-indicator {
             box-shadow: 0 0 10px $contraste;
             opacity: 1;
         }
-        // @media screen and (max-width: 480px){
-        //     padding:0;
-        // }
-
     }
     @media screen and (max-width: 480px){
         width: 100%;
