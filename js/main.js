@@ -59,7 +59,6 @@ function generarCalendario () {
         days += `<div class='post-days'><p>${j + 1}</div>`;
         diasMes.innerHTML = days;
     }
-    
     recuperarFechas();
     crEvent(dtFecha);
     cambiarEsquema()
@@ -171,6 +170,7 @@ function reescribirFecha (element) {
     let arreglo = '#a' + element.fecha.replace(/,/g, '_');
     diaBuscado = document.querySelector(`${arreglo}`);
     if (diaBuscado != null) {
+        diaBuscado.lastChild.classList.add('fulled');
         if(element.horaExtras != 0) {
             diaBuscado.lastChild.textContent = element.horario + " + " +element.horaExtras;
         } else {
@@ -234,7 +234,7 @@ function consolidarNomina (mes1, mes2) {
         for (let i = 0; i < e.horaExtras * 4; i++) {
             calcExtras(fechaNomina, e);
         }
-        let nomina = `<div class="container"><div class="fecha-hora"><p>${e.fecha.replace(/,/g, '-')}</p><p>${e.horario}(${e.horaExtras})</p></div><div><p>Rec. Noc:</p><p>$${recargoNocturnos}</p></div><div><p>Rec. Dom:</p><p>$${recargoDominical}</p></div><div><p>Dom. Noc:</p><p>$${recargoDominicalNoc}</p></div></div>`
+        let nomina = `<div class="container"><div class="fecha-hora"><p>${e.fecha.replace(/,/g, '-')}</p><p>${e.horario}(${e.horaExtras})</p></div><div><p>Noc:</p><p>$${recargoNocturnos}</p></div><div><p>Dom/Fes:</p><p>$${recargoDominical}</p></div><div><p>D-F Noc:</p><p>$${recargoDominicalNoc}</p></div></div>`
         drawPago.innerHTML += nomina;
         extrasDominicalesNoc = 0;
         extrasNocturnas = 0;
@@ -342,7 +342,7 @@ function cambiarEsquema() {
     let puestoTrabajo = document.querySelectorAll('.rol')
     for (let i = 0; i < puestoTrabajo.length; i++) {
         const element = puestoTrabajo[i];
-        element.addEventListener('click', iniciarCambio)
+        element.addEventListener('click', iniciarCambio);
     }
 
 
