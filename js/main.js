@@ -201,7 +201,7 @@ terminar.addEventListener('click', () => {
         totalExtraDom = 0;
         totalExtraNoc = 0;
         totalExtraDomNoc = 0;
-        horasXDom = 0, horasXDomNoc = 0, horasXOrd = 0, horasXNoc = 0;
+        horasXDom = 0, horasXDomNoc = 0, horasXOrd = 0, horasXNoc = 0, horasXSC = 0, horasXSCNoc = 0;
         totalNoCompensado = 0;
         totalNoCompensadoNoc = 0;
     })
@@ -260,7 +260,7 @@ function consolidarNomina (mes1, mes2) {
     let salarioNeto = numeroNomina - deduccionAFP - deduccionEPS;
     let drawTotales = `<p class="totalNomina">Total Nomina: $${moneda(Math.round(salarioNeto))}</p><div class="total"><p>Salario Base</p><p>$${moneda(salarioBase)}</p></div><div class="total"><p>Subsidio de transporte</p><p>$${moneda(subsidioTransporte)}</p></div><div class="total"><p>Rec. Nocturnos:</p><p>$${moneda(totalNoc)}</p></div><div class="total"><p>Rec. Dom y Fest:</p><p>$${moneda(totalDom)}</p></div><div class="total"><p>Rec. Dom y Fest Noc.:</p><p>$${moneda(totalDomNoc)}</p></div><div class="total"><p>Deducción EPS:</p><p>-$${moneda(Math.round(deduccionEPS))}</p></div><div class="total"><p>Deducción AFP:</p><p>-$${moneda(Math.round(deduccionAFP))}</p></div>`
     totales.innerHTML = drawTotales
-
+    
     if (totalNoCompensado > 0) {
         agregarHora(totales, 'Total SC', totalNoCompensado, 'totalSC', horasXSC);
     }
@@ -274,7 +274,7 @@ function consolidarNomina (mes1, mes2) {
         agregarHora(totales, 'Total HE Noc.', totalExtraNoc, 'totalHENoc', horasXNoc);
     }
     if (totalExtraDom > 0) {
-        agregarHora(totales, 'Total HE Dom. Or.', totalExtraDom, 'totalHEDom', horasXDom);
+      agregarHora(totales, 'Total HE Dom. Or.', totalExtraDom, 'totalHEDom', horasXDom);
     }
     if (totalExtraDomNoc > 0) {
         agregarHora(totales, 'Total HE Dom. Noc.', totalExtraDomNoc, 'totalHEDomNoc', horasXDomNoc);
