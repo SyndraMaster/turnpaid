@@ -408,7 +408,9 @@ button {
     justify-content: space-around;
     .container {
         width: 180px;
+        height: 166px;
         display: flex;
+        justify-content: flex-start;
         flex-flow: column nowrap;
         .fecha-hora {
             background-color: #8ebb37;

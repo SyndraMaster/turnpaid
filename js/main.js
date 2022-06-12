@@ -5,7 +5,7 @@ let deduccionAFP = 0;
 let deduccionEPS = 0, horaBase = 0, vrHrExDiOr = 0, vrHrExDiDoFes = 0, vrHrExNocOr = 0, vrHrExNocDoFes = 0, vrRecNocOr = 0, vrRecNocDoFes = 0, vrRecDom = 0, horasNormales = 0, recargoDominical = 0, recargoDominicalNoc = 0, recargoNocturnos = 0, totalDom = 0, totalDomNoc = 0, totalNoc = 0;
 let totalExtraDom = 0, totalExtraDomNoc = 0, totalExtraNoc = 0, totalOrdinaria = 0, extraOrdinaria = 0;
 let extraDominicales = 0, extrasDominicalesNoc = 0, extrasNocturnas = 0;
-let recargoNoCompensadoNoc = 0, recarcoNoCompensado = 0;
+let recargoNoCompensadoNoc = 0, recargoNoCompensado = 0;
 let horasXDomNoc = 0, horasXNoc = 0, horasXDom = 0, horasXOrd = 0, horasXSC = 0, horasXSCNoc = 0;
 let totalNoCompensado = 0, totalNoCompensadoNoc = 0, vrNoCompensado = 0, vrNoCompensadoNoc = 0
 let festivos  = ['2022,1,1','2022,1,10','2022,3,21','2022,4,14','2022,4,15','2022,5,1','2022,5,30','2022,6,20','2022,6,27','2022,7,4','2022,7,20','2022,8,7','2022,8,15','2022,10,17','2022,11,7','2022,12,8','2022,12,25'];
@@ -220,65 +220,104 @@ guardar.addEventListener('click', () => {
 
 
 function consolidarNomina (mes1, mes2) {
-    horaBase = Math.round(salarioBase/240);
-    vrHrExDiOr = Math.round(horaBase * 1.25);
-    vrHrExDiDoFes = Math.round(horaBase * 2);
-    vrHrExNocOr = Math.round(horaBase * 1.75);
-    vrHrExNocDoFes = Math.round(horaBase * 2.5);
-    vrRecNocOr = Math.round(horaBase * 0.35);
-    vrRecNocDoFes = Math.round(horaBase * 1.1);
-    vrRecDom = Math.round(horaBase * 0.75);
-    vrNoCompensado = Math.round(horaBase * 1.75)
-    vrNoCompensadoNoc = Math.round(horaBase * 2.1)
-    calendario.forEach(e => {
-        let fechaNomina = new Date(e.fecha + ',' + e.horario)
-        // console.log(e.fecha);
-        for (let i = 0; i < 8; i++) {
-            calcNomina(fechaNomina, e)
-        }
-        fechaNomina.setTime(fechaNomina.getTime() + 45 * 60 * 1000);
-        for (let i = 0; i < e.horaExtras * 4; i++) {
-            calcExtras(fechaNomina, e);
-        }
-        let nomina = `<div class="container"><div class="fecha-hora"><p>${e.fecha.replace(/,/g, '-')}</p><p>${e.horario}(${e.horaExtras})</p></div><div><p>Noc:</p><p>$${recargoNocturnos}</p></div><div><p>Dom/Fes:</p><p>$${recargoDominical}</p></div><div><p>D-F Noc:</p><p>$${recargoDominicalNoc}</p></div></div>`
-        drawPago.innerHTML += nomina;
-        extrasDominicalesNoc = 0;
-        extrasNocturnas = 0;
-        extraOrdinaria = 0;
-        extraDominicales = 0;
-        recargoNocturnos = 0;
-        recargoDominicalNoc = 0;
-        recargoDominical = 0;
-        recarcoNoCompensado = 0;
-        recargoNoCompensadoNoc = 0;
-        horaExtras = 0;
-    })
-    let numeroNomina = totalDom + totalDomNoc + totalNoc + salarioBase + subsidioTransporte + totalOrdinaria + totalExtraNoc + totalExtraDom + totalExtraDomNoc + totalNoCompensado + totalNoCompensadoNoc;
-    deduccionEPS = (numeroNomina-subsidioTransporte) * 0.04;
-    deduccionAFP = (numeroNomina-subsidioTransporte) * 0.04;
-    numeroNomina = numeroNomina - deduccionAFP + deduccionEPS;
-    let salarioNeto = numeroNomina - deduccionAFP - deduccionEPS;
-    let drawTotales = `<p class="totalNomina">Total Nomina: $${moneda(Math.round(salarioNeto))}</p><div class="total"><p>Salario Base</p><p>$${moneda(salarioBase)}</p></div><div class="total"><p>Subsidio de transporte</p><p>$${moneda(subsidioTransporte)}</p></div><div class="total"><p>Rec. Nocturnos:</p><p>$${moneda(totalNoc)}</p></div><div class="total"><p>Rec. Dom y Fest:</p><p>$${moneda(totalDom)}</p></div><div class="total"><p>Rec. Dom y Fest Noc.:</p><p>$${moneda(totalDomNoc)}</p></div><div class="total"><p>Deducción EPS:</p><p>-$${moneda(Math.round(deduccionEPS))}</p></div><div class="total"><p>Deducción AFP:</p><p>-$${moneda(Math.round(deduccionAFP))}</p></div>`
-    totales.innerHTML = drawTotales
+  horaBase = Math.round(salarioBase/240);
+  vrHrExDiOr = Math.round(horaBase * 1.25);
+  vrHrExDiDoFes = Math.round(horaBase * 2);
+  vrHrExNocOr = Math.round(horaBase * 1.75);
+  vrHrExNocDoFes = Math.round(horaBase * 2.5);
+  vrRecNocOr = Math.round(horaBase * 0.35);
+  vrRecNocDoFes = Math.round(horaBase * 1.1);
+  vrRecDom = Math.round(horaBase * 0.75);
+  vrNoCompensado = Math.round(horaBase * 1.75)
+  vrNoCompensadoNoc = Math.round(horaBase * 2.1)
+  calendario.forEach(e => {
+    let fechaNomina = new Date(e.fecha + ',' + e.horario)
+    // console.log(e.fecha);
+    for (let i = 0; i < 8; i++) {
+        calcNomina(fechaNomina, e)
+    }
+    fechaNomina.setTime(fechaNomina.getTime() + 45 * 60 * 1000);
+    for (let i = 0; i < e.horaExtras * 4; i++) {
+        calcExtras(fechaNomina, e);
+    }
+    // let nomina = `<div class="container"><div class="fecha-hora"><p>${e.fecha.replace(/,/g, '-')}</p><p>${e.horario}(${e.horaExtras})</p></div><div><p>Dom/Fes:</p><p>$${recargoDominical}</p></div><div><p>D-F Noc:</p><p>$${recargoDominicalNoc}</p></div></div>`
+    // drawPago.innerHTML += nomina;
+    let contenedor = document.createElement('div');
+    let titulo = document.createElement('div');
+    let fecha = document.createElement('p');
+    let horario = document.createElement('p')
+    contenedor.classList.add('container');
+    titulo.classList.add("fecha-hora");
+    fecha.textContent = e.fecha.replace(/,/g, "-");
+    horario.textContent = e.horario + '(' + e.horaExtras + ')'
+    titulo.appendChild(fecha);
+    titulo.appendChild(horario);
+    contenedor.appendChild(titulo);
+    if (recargoNocturnos > 0) {
+      agregarNomina(recargoNocturnos, 'Noc:', contenedor)
+    }
+    if (recargoDominical > 0) {
+      agregarNomina(recargoDominical, 'Dom/Fes:', contenedor)
+    }
+    if (recargoDominicalNoc > 0) {
+      agregarNomina(recargoDominicalNoc, 'D-F Noc:', contenedor)
+    }
+    if (recargoNoCompensadoNoc > 0) {
+      agregarNomina(recargoNoCompensadoNoc, 'SC Noc:', contenedor)
+    }
+    if (recargoNoCompensado > 0) {
+      agregarNomina(recargoNoCompensado, 'SC Ord:', contenedor)
+    }
+
+    drawPago.appendChild(contenedor);
+    extrasDominicalesNoc = 0;
+    extrasNocturnas = 0;
+    extraOrdinaria = 0;
+    extraDominicales = 0;
+    recargoNocturnos = 0;
+    recargoDominicalNoc = 0;
+    recargoDominical = 0;
+    recargoNoCompensado = 0;
+    recargoNoCompensadoNoc = 0;
+    horaExtras = 0;
+  })
+  let numeroNomina = totalDom + totalDomNoc + totalNoc + salarioBase + subsidioTransporte + totalOrdinaria + totalExtraNoc + totalExtraDom + totalExtraDomNoc + totalNoCompensado + totalNoCompensadoNoc;
+  deduccionEPS = (numeroNomina-subsidioTransporte) * 0.04;
+  deduccionAFP = (numeroNomina-subsidioTransporte) * 0.04;
+  numeroNomina = numeroNomina - deduccionAFP + deduccionEPS;
+  let salarioNeto = numeroNomina - deduccionAFP - deduccionEPS;
+  let drawTotales = `<p class="totalNomina">Total Nomina: $${moneda(Math.round(salarioNeto))}</p><div class="total"><p>Salario Base</p><p>$${moneda(salarioBase)}</p></div><div class="total"><p>Subsidio de transporte</p><p>$${moneda(subsidioTransporte)}</p></div><div class="total"><p>Rec. Nocturnos:</p><p>$${moneda(totalNoc)}</p></div><div class="total"><p>Rec. Dom y Fest:</p><p>$${moneda(totalDom)}</p></div><div class="total"><p>Rec. Dom y Fest Noc.:</p><p>$${moneda(totalDomNoc)}</p></div><div class="total"><p>Deducción EPS:</p><p>-$${moneda(Math.round(deduccionEPS))}</p></div><div class="total"><p>Deducción AFP:</p><p>-$${moneda(Math.round(deduccionAFP))}</p></div>`
+  totales.innerHTML = drawTotales
     
-    if (totalNoCompensado > 0) {
-        agregarHora(totales, 'Total SC', totalNoCompensado, 'totalSC', horasXSC);
-    }
-    if (totalNoCompensadoNoc > 0) {
-        agregarHora(totales, 'Total SC NOC', totalNoCompensadoNoc, 'totalSCNoc', horasXSCNoc);
-    }
-    if (totalOrdinaria > 0) {
-        agregarHora(totales, 'Total HE Ordinaria', totalOrdinaria, 'totalHEOrd', horasXOrd);
-    }
-    if (totalExtraNoc > 0) {
-        agregarHora(totales, 'Total HE Noc.', totalExtraNoc, 'totalHENoc', horasXNoc);
-    }
-    if (totalExtraDom > 0) {
-      agregarHora(totales, 'Total HE Dom. Or.', totalExtraDom, 'totalHEDom', horasXDom);
-    }
-    if (totalExtraDomNoc > 0) {
-        agregarHora(totales, 'Total HE Dom. Noc.', totalExtraDomNoc, 'totalHEDomNoc', horasXDomNoc);
-    }
+  if (totalNoCompensado > 0) {
+      agregarHora(totales, 'Total SC', totalNoCompensado, 'totalSC', horasXSC);
+  }
+  if (totalNoCompensadoNoc > 0) {
+      agregarHora(totales, 'Total SC NOC', totalNoCompensadoNoc, 'totalSCNoc', horasXSCNoc);
+  }
+  if (totalOrdinaria > 0) {
+      agregarHora(totales, 'Total HE Ordinaria', totalOrdinaria, 'totalHEOrd', horasXOrd);
+  }
+  if (totalExtraNoc > 0) {
+      agregarHora(totales, 'Total HE Noc.', totalExtraNoc, 'totalHENoc', horasXNoc);
+  }
+  if (totalExtraDom > 0) {
+    agregarHora(totales, 'Total HE Dom. Or.', totalExtraDom, 'totalHEDom', horasXDom);
+  }
+  if (totalExtraDomNoc > 0) {
+      agregarHora(totales, 'Total HE Dom. Noc.', totalExtraDomNoc, 'totalHEDomNoc', horasXDomNoc);
+  }
+}
+
+function agregarNomina (hora, texto, padre) {
+  let elemento = document.createElement('div');
+  let elemento2 = document.createElement('p');
+  let valorHorac = document.createElement('p');
+  elemento2.textContent = texto;
+  valorHorac.textContent = "$" + hora;
+  elemento.appendChild(elemento2);
+  elemento.appendChild(valorHorac);
+  padre.appendChild(elemento)
 }
 function agregarHora (elementoPadre, hora, valorHora, clase, numeroHoras) {
     let elemento = document.createElement('div');
@@ -349,7 +388,7 @@ function calcNomina (fechaNomina, e) {
         }
     } else {
       if (festivos.includes(compararFestivos)) {
-        recarcoNoCompensado += vrNoCompensado;
+        recargoNoCompensado += vrNoCompensado;
         totalNoCompensado += vrNoCompensado;
         horasXSC += 1;
       }
