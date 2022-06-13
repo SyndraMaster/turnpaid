@@ -1,8 +1,7 @@
 let salarioBase = 1000000;
 let horasPlus = document.getElementsByClassName('hora-ex');
 let subsidioTransporte = 117172;
-let deduccionAFP = 0;
-let deduccionEPS = 0, horaBase = 0, vrHrExDiOr = 0, vrHrExDiDoFes = 0, vrHrExNocOr = 0, vrHrExNocDoFes = 0, vrRecNocOr = 0, vrRecNocDoFes = 0, vrRecDom = 0, horasNormales = 0, recargoDominical = 0, recargoDominicalNoc = 0, recargoNocturnos = 0, totalDom = 0, totalDomNoc = 0, totalNoc = 0;
+let deduccionesTotales = 0, horaBase = 0, vrHrExDiOr = 0, vrHrExDiDoFes = 0, vrHrExNocOr = 0, vrHrExNocDoFes = 0, vrRecNocOr = 0, vrRecNocDoFes = 0, vrRecDom = 0, horasNormales = 0, recargoDominical = 0, recargoDominicalNoc = 0, recargoNocturnos = 0, totalDom = 0, totalDomNoc = 0, totalNoc = 0;
 let totalExtraDom = 0, totalExtraDomNoc = 0, totalExtraNoc = 0, totalOrdinaria = 0, extraOrdinaria = 0;
 let extraDominicales = 0, extrasDominicalesNoc = 0, extrasNocturnas = 0;
 let recargoNoCompensadoNoc = 0, recargoNoCompensado = 0;
@@ -282,11 +281,10 @@ function consolidarNomina (mes1, mes2) {
     horaExtras = 0;
   })
   let numeroNomina = totalDom + totalDomNoc + totalNoc + salarioBase + subsidioTransporte + totalOrdinaria + totalExtraNoc + totalExtraDom + totalExtraDomNoc + totalNoCompensado + totalNoCompensadoNoc;
-  deduccionEPS = (numeroNomina-subsidioTransporte) * 0.04;
-  deduccionAFP = (numeroNomina-subsidioTransporte) * 0.04;
-  numeroNomina = numeroNomina - deduccionAFP + deduccionEPS;
-  let salarioNeto = numeroNomina - deduccionAFP - deduccionEPS;
-  let drawTotales = `<p class="totalNomina">Total Nomina: $${moneda(Math.round(salarioNeto))}</p><div class="total"><p>Salario Base</p><p>$${moneda(salarioBase)}</p></div><div class="total"><p>Subsidio de transporte</p><p>$${moneda(subsidioTransporte)}</p></div><div class="total"><p>Rec. Nocturnos:</p><p>$${moneda(totalNoc)}</p></div><div class="total"><p>Rec. Dom y Fest:</p><p>$${moneda(totalDom)}</p></div><div class="total"><p>Rec. Dom y Fest Noc.:</p><p>$${moneda(totalDomNoc)}</p></div><div class="total"><p>Deducción EPS:</p><p>-$${moneda(Math.round(deduccionEPS))}</p></div><div class="total"><p>Deducción AFP:</p><p>-$${moneda(Math.round(deduccionAFP))}</p></div>`
+  deduccionesTotales = (numeroNomina-subsidioTransporte) * 0.04;
+  numeroNomina = numeroNomina - deduccionesTotales + deduccionesTotales;
+  let salarioNeto = numeroNomina - deduccionesTotales - deduccionesTotales;
+  let drawTotales = `<p class="totalNomina">Total Nomina: $${moneda(Math.round(salarioNeto))}</p><div class="total"><p>Salario Base</p><p>$${moneda(salarioBase)}</p></div><div class="total"><p>Subsidio de transporte</p><p>$${moneda(subsidioTransporte)}</p></div><div class="total"><p>Rec. Nocturnos:</p><p>$${moneda(totalNoc)}</p></div><div class="total"><p>Rec. Dom y Fest:</p><p>$${moneda(totalDom)}</p></div><div class="total"><p>Rec. Dom y Fest Noc.:</p><p>$${moneda(totalDomNoc)}</p></div>`
   totales.innerHTML = drawTotales
     
   if (totalNoCompensado > 0) {
@@ -307,6 +305,8 @@ function consolidarNomina (mes1, mes2) {
   if (totalExtraDomNoc > 0) {
       agregarHora(totales, 'Total HE Dom. Noc.', totalExtraDomNoc, 'totalHEDomNoc', horasXDomNoc);
   }
+  deducciones('Deducción EPS', totales);
+  deducciones('Deducción AFP', totales);
 }
 
 function agregarNomina (hora, texto, padre) {
@@ -319,6 +319,7 @@ function agregarNomina (hora, texto, padre) {
   elemento.appendChild(valorHorac);
   padre.appendChild(elemento)
 }
+
 function agregarHora (elementoPadre, hora, valorHora, clase, numeroHoras) {
     let elemento = document.createElement('div');
     let elemento2 = document.createElement('p');
@@ -330,6 +331,21 @@ function agregarHora (elementoPadre, hora, valorHora, clase, numeroHoras) {
     elemento.appendChild(elemento2);
     elemento.appendChild(valorHorac);
     elementoPadre.appendChild(elemento);
+  }
+  
+  function deducciones (titulo, padre) {
+    let elemento = document.createElement('div');
+    let elemento2 = document.createElement('p');
+    let valorHorac = document.createElement('p');
+    elemento.classList.add('total')
+    elemento2.classList.add('deducciones')
+    elemento2.innerHTML=`${titulo}:`
+    valorHorac.innerHTML=`-$${moneda(Math.round(deduccionesTotales))}`;
+    valorHorac.style.color = 'red';
+    elemento.appendChild(elemento2);
+    elemento.appendChild(valorHorac);
+    padre.appendChild(elemento);
+    
 }
 function moneda (dinero) {
     let resultado = Intl.NumberFormat('es-IN', {style: 'currency', currency: 'COP', minimumFractionDigits: 0}).format(dinero);
