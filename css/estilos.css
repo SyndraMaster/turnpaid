@@ -547,7 +547,7 @@ button {
   font-size: 1.5rem;
 }
 
-.nominaContainer i {
+.nominaContainer .cerrarNomina {
   position: absolute;
   top: 20px;
   right: 20px;
