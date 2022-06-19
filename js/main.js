@@ -103,6 +103,13 @@ function openModal () {
         seleccionTurno[i].addEventListener('click', turnInit)
     }
 }
+document.querySelector('.descanso').addEventListener('click', () => {
+    turno.value = '';
+    modal.classList.remove('modalOpen');
+
+    turnSelect.classList.add('diaDescanso');
+    turnSelect.classList.remove('fulled');
+})
 
 function turnInit () {
     turnSelect = this;
@@ -111,6 +118,10 @@ function turnInit () {
 
 function changeTurn (turnSelect) {
     turno.value = turnSelect.textContent;
+    document.querySelector('.descanso').addEventListener('click', () => {
+        turno.value = '';
+        modal.classList.remove('modalOpen');
+    })
 }
 function selecthe () {
     let horaSelect = null;
