@@ -6,12 +6,16 @@
           box-sizing: border-box;
 }
 
+body {
+  background-color: #313535;
+}
+
 header {
   width: 100%;
 }
 
 header h1 {
-  background-color: #8ebb37;
+  background-color: #3a73df;
   text-align: center;
   font-size: 3rem;
   line-height: 4rem;
@@ -21,7 +25,7 @@ header h1 {
 header h2 {
   text-align: center;
   padding: 20px;
-  color: #1a3072;
+  color: #d3d3d3;
 }
 
 @media screen and (max-width: 800px) {
@@ -51,19 +55,7 @@ header h2 {
   margin-bottom: 20px;
 }
 
-.selectRol .rol.rol-Oper.active {
-  background-color: #8ebb37;
-  font-weight: bold;
-  color: #fff;
-}
-
-.selectRol .rol.rol-Super.active {
-  background-color: #e47b25;
-  font-weight: bold;
-  color: #fff;
-}
-
-.selectRol .rol.rol-Con.active {
+.selectRol .rol.active {
   background-color: #3a73df;
   font-weight: bold;
   color: #fff;
@@ -104,13 +96,13 @@ header h2 {
       -ms-flex-flow: column nowrap;
           flex-flow: column nowrap;
   width: 900px;
-  background-color: #d3d3d3;
-  -webkit-box-shadow: 0px 0px 10px #8ebb37;
-          box-shadow: 0px 0px 10px #8ebb37;
+  background-color: #696969;
+  -webkit-box-shadow: 0px 0px 10px #3a73df;
+          box-shadow: 0px 0px 10px #3a73df;
 }
 
 .mes-head {
-  background-color: #8ebb37;
+  background-color: #3a73df;
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -184,7 +176,6 @@ header h2 {
 .dias-mes > div {
   height: 80px;
   width: 100%;
-  border: 1px solid #d3d3d3;
   padding: 5px;
 }
 
@@ -210,7 +201,7 @@ header h2 {
   text-align: right;
   padding-right: 5px;
   background-color: #fff;
-  color: #8ebb37;
+  color: #3a73df;
   font-weight: bold;
 }
 
@@ -222,7 +213,7 @@ header h2 {
   width: 100%;
   height: 50px;
   margin-bottom: 5px;
-  background-color: #8ebb37;
+  background-color: #3a73df;
   opacity: 0.4;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -330,7 +321,7 @@ header h2 {
 
 .modal-titulo {
   color: #fff;
-  background-color: #8ebb37;
+  background-color: #3a73df;
   width: 100%;
   text-align: center;
   padding: 12px;
@@ -368,6 +359,13 @@ h4 {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
   padding: 20px;
 }
 
@@ -375,6 +373,7 @@ input[type=time] {
   padding: 10px;
   width: 170px;
   border: none;
+  margin-bottom: 20px;
   border-radius: 5px;
   font-size: 2rem;
   font-weight: bold;
@@ -495,20 +494,20 @@ button {
 }
 
 .confirmar {
-  background-color: #8ebb37;
+  background-color: #3a73df;
   color: #fff;
 }
 
 .terminar {
   text-align: center;
-  background-color: #1a3072;
+  background-color: #3a73df;
   width: 150px;
   color: #fff;
   font-weight: bold;
   font-size: 1.2rem;
   cursor: pointer;
-  -webkit-box-shadow: 0 0 5px #1a3072;
-          box-shadow: 0 0 5px #1a3072;
+  -webkit-box-shadow: 0 0 15px #1a3072;
+          box-shadow: 0 0 15px #1a3072;
   margin: auto;
   padding: 10px 20px;
   margin-bottom: 20px;

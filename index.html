@@ -16,7 +16,7 @@
 <body>
     <header>
         <h1>SALMA</h1>
-        <h2>Revisa tu sueldo y recargos en <span style="color: red;">S</span>istema <span style="color: red;">A</span>gropecuario <span style="color: red;">I</span>ndustrial</h2>
+        <h2>Revisa tu sueldo y recargos en <span style="color: #3a73df;">S</span>istema <span style="color: #3a73df;">A</span>gropecuario <span style="color: #3a73df;">I</span>ndustrial</h2>
         <div class="selectRol">
             <div class="rol rol-Oper active">Operario</div>
             <div class="rol rol-Super">Supervisor</div>
@@ -32,9 +32,6 @@
                     <p>Selecciona entre los turnos disponibles o escribe el tuyo</p>
                 </div>
                 <div class="modal-seleccion">
-                    <div class="reloj">
-                        <input type="time" name="turno" id="turno">
-                    </div>
                     <div class="turnos">
                         <div class="pre-turno">04:00</div>
                         <div class="pre-turno">05:00</div>
@@ -54,12 +51,11 @@
                         <div class="hora-ex plus1">+ 1</div>
                         <div class="hora-ex plus2">+ 2</div>
                     </div>
-                    <div class="enviar">
-                        <div class="borrar">
-                            <button class="descanso">Descanso</button>
-                        </div>
-                        <div class="">
-                            <button type="submit" class="confirmar">Confirmar</button>
+                    <div class="reloj">
+                        <input type="time" name="turno" id="turno">
+                        <div class="enviar">
+                                <button class="descanso" name="descanso">Descanso</button>
+                                <button type="submit" class="confirmar">Confirmar</button>
                         </div>
                     </div>
                 </div>
@@ -95,16 +91,7 @@
             </div>
         </div>
     </main>
-    <section class="robo-sai">
-        <h2>Información sobre la legislación colombiana con respecto al pago de los días domingos</h2>
-        <div class="container">
-            <h3>Esta calculadora está diseñada bajo el sistema de pago de SAI, el cual comete una infracción a la liquidacion de recargo por trabajar los domingos</h3>
-            <article>
-                <p>Según el Código Sustantivo del Trabajo (C.S.T.), y agregando la información dada por el área de nómina de la empresa, se puede demostrar que mensualmente la empresa ha robado a sus trabajadores mes a mes el equivalente a al menos 4 días ordinarios, el hombre encargado de nómina manifiesta un error en la interpretación de la norma por parte de los trabajadores, admitiendo que al demostrar lo expuesto los siguientes puntos, desde el área de nómina se tiene conocimiento y se ha hecho un robo a cada uno de los trabajadores de forma intencionada y planificada.</p>
-                
-            </article>
-        </div>
-    </section>
+    
     <script src="js/main.js"></script>
 </body>
 </html>

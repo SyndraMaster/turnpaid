@@ -29,6 +29,7 @@ let cerrarNomina = document.querySelector('.cerrarNomina');
 let drawPago = document.querySelector('.turnosContainer');
 let totales = document.querySelector('.totales');
 let guardar = document.querySelector('.confirmar');
+let cuerpo = document.querySelector('body');
 
 
 function generarCalendario () {
@@ -99,13 +100,21 @@ selecthe()
 
 function openModal () {
     modal.classList.add("modalOpen");
+    window.scrollTo(0,0) 
+    cuerpo.style.height = '100%';
+    cuerpo.style.overflow = 'hidden';
     for (let i = 0; i < seleccionTurno.length; i++) {
         seleccionTurno[i].addEventListener('click', turnInit)
     }
 }
+
+function cerrarModal () {
+    modal.classList.remove('modalOpen')
+    cuerpo.style.overflow = 'visible';
+}
 document.querySelector('.descanso').addEventListener('click', () => {
     turno.value = '';
-    modal.classList.remove('modalOpen');
+    cerrarModal();
 
     turnSelect.classList.add('diaDescanso');
     turnSelect.classList.remove('fulled');
@@ -120,7 +129,7 @@ function changeTurn (turnSelect) {
     turno.value = turnSelect.textContent;
     document.querySelector('.descanso').addEventListener('click', () => {
         turno.value = '';
-        modal.classList.remove('modalOpen');
+        cerrarModal();
     })
 }
 function selecthe () {
@@ -165,11 +174,11 @@ function agregarJson (turno, diafechado) {
     }
     calendario.sort(function(a, b) { a = new Date(a.fecha); b = new Date(b.fecha); return a>b ? -1 : a<b ? 1 : 0; });
 
-    modal.classList.remove('modalOpen');
+    cerrarModal();
 }
 
 cerrar.addEventListener('click', () => {
-    modal.classList.remove('modalOpen');
+    cerrarModal();
 })
 
 function recuperarFechas () {
