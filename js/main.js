@@ -115,7 +115,6 @@ function cerrarModal () {
 document.querySelector('.descanso').addEventListener('click', () => {
     turno.value = '';
     cerrarModal();
-
     turnSelect.classList.add('diaDescanso');
     turnSelect.classList.remove('fulled');
 })
@@ -379,7 +378,7 @@ function calcExtras (fechaNomina,) {
     console.log(compararFestivos);
     console.log(festivos.includes(compararFestivos));
     
-    if (horaPago > 21 || horaPago <= 5) {
+    if (horaPago >= 21 || horaPago <= 5) {
         if (diaPago == 0 || festivos.includes(compararFestivos)) {
             extrasDominicalesNoc += vrHrExNocDoFes / 4;
             totalExtraDomNoc += vrHrExNocDoFes / 4;
