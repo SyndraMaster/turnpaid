@@ -159,6 +159,10 @@ function selecthe () {
         horaExtras = 2;
         recuperarFechas()
     })
+    document.querySelector('.plus3').addEventListener('click', () => {
+        horaExtras = 3;
+        recuperarFechas()
+    })
 }
 let calendarioData = localStorage.getItem('fechas');
 let miData = JSON.parse(calendarioData);
