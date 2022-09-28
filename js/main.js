@@ -30,6 +30,7 @@ let drawPago = document.querySelector('.turnosContainer');
 let totales = document.querySelector('.totales');
 let guardar = document.querySelector('.confirmar');
 let cuerpo = document.querySelector('body');
+let reiniciar = document.querySelector('.reiniciar');
 
 
 function generarCalendario () {
@@ -159,21 +160,45 @@ function selecthe () {
         recuperarFechas()
     })
 }
+let calendarioData = localStorage.getItem('fechas');
+let miData = JSON.parse(calendarioData);
 function agregarJson (turno, diafechado) {
-    if(calendario.find(e => e.fecha == diafechado.toString()) != null) {
-        calendario.find(e => e.fecha == diafechado.toString()).horario = turno;
-        calendario.find(e => e.fecha == diafechado.toString()).horaExtras = horaExtras;
-    }
-    else {
-        calendario.push({
+  // localStorage.setItem('fechas', nuevaLista)
+  
+  if(calendarioData == null) {
+    let nuevaLista = [];
+    // console.log(nuevaLista)
+    nuevaLista.push({
+        fecha: diafechado.toString(),
+        horario: turno,
+        horaExtras: horaExtras
+    })
+    // nuevaLista.sort(function(a, b) { a = new Date(a.fecha); b = new Date(b.fecha); return a>b ? -1 : a<b ? 1 : 0; });
+    let calendarioJson = JSON.stringify(nuevaLista);
+    localStorage.setItem('fechas', calendarioJson)
+    location.reload()
+    
+  } else {
+    
+    if(miData.find(e => e.fecha == diafechado.toString()) != null) {
+      miData.find(e => e.fecha == diafechado.toString()).horario = turno;
+      miData.find(e => e.fecha == diafechado.toString()).horaExtras = horaExtras;
+      miData.sort(function(a, b) { a = new Date(a.fecha); b = new Date(b.fecha); return a>b ? -1 : a<b ? 1 : 0; })
+      let calendarioJson = JSON.stringify(miData);
+      localStorage.setItem('fechas', calendarioJson)
+    } else {
+        miData.push({
             fecha: diafechado.toString(),
             horario: turno,
             horaExtras: horaExtras
         })
+        miData.sort(function(a, b) { a = new Date(a.fecha); b = new Date(b.fecha); return a>b ? -1 : a<b ? 1 : 0; });
+        let calendarioJson = JSON.stringify(miData);
+        localStorage.setItem('fechas', calendarioJson)
+      }
     }
-    calendario.sort(function(a, b) { a = new Date(a.fecha); b = new Date(b.fecha); return a>b ? -1 : a<b ? 1 : 0; });
-
     cerrarModal();
+  
 }
 
 cerrar.addEventListener('click', () => {
@@ -181,10 +206,16 @@ cerrar.addEventListener('click', () => {
 })
 
 function recuperarFechas () {
-    calendario.forEach(e => 
-        reescribirFecha(e)
-        );
-    }
+  // let calendarioData = localStorage.getItem('fechas');
+  // let miData = JSON.parse(calendarioData);
+
+  if (miData) {
+    console.log(miData)
+    miData.forEach(e => 
+      reescribirFecha(e)
+      );
+  }
+}
 
 function reescribirFecha (element) {
     let arreglo = '#a' + element.fecha.replace(/,/g, '_');
@@ -225,7 +256,10 @@ terminar.addEventListener('click', () => {
     })
     document.querySelector('.calendar').style.display = "none";
 })
-
+reiniciar.addEventListener('click', () => {
+  localStorage.clear();
+  location.reload();
+})
 guardar.addEventListener('click', () => {
     agregarJson(turno.value, diafechado, horaExtras)
     recuperarFechas();
@@ -248,9 +282,8 @@ function consolidarNomina (mes1, mes2) {
   vrRecDom = Math.round(horaBase * 0.75);
   vrNoCompensado = Math.round(horaBase * 1.75)
   vrNoCompensadoNoc = Math.round(horaBase * 2.1)
-  calendario.forEach(e => {
+  miData.forEach(e => {
     let fechaNomina = new Date(e.fecha + ',' + e.horario)
-    // console.log(e.fecha);
     for (let i = 0; i < 8; i++) {
         calcNomina(fechaNomina, e)
     }
@@ -375,9 +408,6 @@ function calcExtras (fechaNomina,) {
     let diaPago = fechaNomina.getDay();
     let mes  = fechaNomina.getMonth() + 1
     let compararFestivos = fechaNomina.getFullYear() + ',' + mes + ',' + fechaNomina.getDate();
-    console.log(compararFestivos);
-    console.log(festivos.includes(compararFestivos));
-    
     if (horaPago >= 21 || horaPago <= 5) {
         if (diaPago == 0 || festivos.includes(compararFestivos)) {
             extrasDominicalesNoc += vrHrExNocDoFes / 4;
@@ -406,8 +436,6 @@ function calcNomina (fechaNomina, e) {
     let diaPago = fechaNomina.getDay();
     let mes  = fechaNomina.getMonth() + 1
     let compararFestivos = fechaNomina.getFullYear() + ',' + mes + ',' + fechaNomina.getDate();
-    console.log(compararFestivos);
-    console.log(festivos.includes(compararFestivos));
     if (horaPago >= 21 || horaPago <= 5) {
         if (festivos.includes(compararFestivos)) {
           recargoNoCompensadoNoc += vrNoCompensadoNoc;

@@ -498,7 +498,15 @@ button {
   color: #fff;
 }
 
-.terminar {
+.options-final {
+  margin: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 400px;
+}
+
+.terminar, .reiniciar {
   text-align: center;
   background-color: #3a73df;
   width: 150px;
@@ -511,6 +519,10 @@ button {
   margin: auto;
   padding: 10px 20px;
   margin-bottom: 20px;
+}
+
+.reiniciar {
+  background-color: #09bdca;
 }
 
 .drawNomina {

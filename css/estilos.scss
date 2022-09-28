@@ -345,7 +345,12 @@ button {
     background-color: $principal;
     color: #fff;
 }
-.terminar {
+.options-final {
+    margin: auto;
+    display: flex;
+    width: 400px;
+}
+.terminar, .reiniciar {
     text-align: center;
     background-color: $principal;
     width: 150px;
@@ -358,6 +363,9 @@ button {
     padding: 10px 20px;
     margin-bottom: 20px;
 
+}
+.reiniciar {
+    background-color: #09bdca;
 }
 .drawNomina {
     position: absolute;
