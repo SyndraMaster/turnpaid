@@ -177,7 +177,6 @@ function agregarJson (turno, diafechado) {
         horario: turno,
         horaExtras: horaExtras
     })
-    // nuevaLista.sort(function(a, b) { a = new Date(a.fecha); b = new Date(b.fecha); return a>b ? -1 : a<b ? 1 : 0; });
     let calendarioJson = JSON.stringify(nuevaLista);
     localStorage.setItem('fechas', calendarioJson)
     location.reload()
@@ -323,6 +322,15 @@ function consolidarNomina (mes1, mes2) {
     if (recargoNoCompensado > 0) {
       agregarNomina(recargoNoCompensado, 'SC Ord:', contenedor)
     }
+    if (extraDominicales > 0) {
+      agregarNomina(extraDominicales, 'Ex Dom:', contenedor)
+    }
+    if (extraOrdinaria > 0) {
+      agregarNomina(extraOrdinaria, 'Ex Ord:', contenedor)
+    }
+    if (extrasNocturnas > 0) {
+      agregarNomina(extrasNocturnas, 'Ex Noc:', contenedor)
+    }
 
     drawPago.appendChild(contenedor);
     extrasDominicalesNoc = 0;
@@ -382,7 +390,7 @@ function agregarHora (elementoPadre, hora, valorHora, clase, numeroHoras) {
     let valorHorac = document.createElement('p');
     elemento.classList.add('total')
     elemento2.classList.add(clase)
-    elemento2.innerHTML=`${hora}: (${numeroHoras})`
+    elemento2.innerHTML=`${hora}: (${numeroHoras} Hrs)`
     valorHorac.innerHTML=`$${moneda(Math.round(valorHora))}`;
     elemento.appendChild(elemento2);
     elemento.appendChild(valorHorac);
